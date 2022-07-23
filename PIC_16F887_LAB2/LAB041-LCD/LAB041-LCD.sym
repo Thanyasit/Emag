@@ -1,0 +1,84 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+008     lcd
+008     PSP_DATA
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @TRIS_C
+021-029 MAIN.msg
+02A-039 MAIN.msa
+03A-043 MAIN.msb
+044-053 MAIN.mse
+054     MAIN.i
+055     lcd_init.i
+055     MAIN.@SCRATCH
+056     lcd_putc.c
+056     lcd_init.@SCRATCH
+057     lcd_gotoxy.x
+057     @delay_ms2.P1
+058     lcd_gotoxy.y
+059     lcd_gotoxy.address
+05A     lcd_gotoxy.@SCRATCH
+05B     lcd_send_byte.address
+05C     lcd_send_byte.n
+05D     lcd_read_byte.low
+05D     lcd_send_byte.@SCRATCH
+05E     lcd_send_nibble.n
+05E     lcd_read_byte.high
+05F     lcd_read_byte.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+000C  @delay_ms2
+0004  LCD_INIT_STRING
+0030  lcd_read_byte
+0020  lcd_send_nibble
+002F  lcd_send_byte
+006B  lcd_init
+0097  lcd_gotoxy
+00A9  lcd_putc
+00CE  MAIN
+00CE  @cinit
+
+Project Directory:
+    D:\Work T.Pongsak\Microcontroller\Work\LAB041-LCD\
+
+Project Files:
+    LAB041-LCD.c
+    LAB041-LCD.h
+    C:\Program Files (x86)\PICC\devices\16F877A.h
+    C:\Program Files (x86)\PICC\drivers\lcd.c
+
+Units:
+    LAB041-LCD.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      LAB041-LCD.err
+    Ext Symbols: LAB041-LCD.esym
+    INHX8:       LAB041-LCD.hex
+    Symbols:     LAB041-LCD.sym
+    List:        LAB041-LCD.lst
+    Debug/COFF:  LAB041-LCD.cof
+    Project:     LAB041-LCD.PJT
+    Call Tree:   LAB041-LCD.tre
+    Statistics:  LAB041-LCD.sta

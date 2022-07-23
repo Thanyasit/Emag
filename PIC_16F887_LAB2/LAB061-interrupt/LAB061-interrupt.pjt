@@ -1,0 +1,26 @@
+[PROJECT]
+Target=D:\Work T.Pongsak\Microcontroller\Work\LAB061-interrupt\LAB061-interrupt.hex
+Development_Mode=
+Processor_Text=PIC16F877A
+ToolSuite=CCS
+Processor=0x877A
+[D:\Work T.Pongsak\Microcontroller\Work\LAB061-interrupt\LAB061-interrupt]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=D:\Work T.Pongsak\Microcontroller\Work\LAB061-interrupt\LAB061-interrupt.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=D:\Work T.Pongsak\Microcontroller\Work\LAB061-interrupt\LAB061-interrupt
+[Opened Files]
+1=d:\work t.pongsak\microcontroller\work\lab061-interrupt\LAB061-interrupt.c
+2=D:\Work T.Pongsak\Microcontroller\Work\LAB061-interrupt\LAB061-interrupt.h
+3=C:\Program Files (x86)\PICC\devices\16F877A.h
+4=

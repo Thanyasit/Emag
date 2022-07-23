@@ -1,0 +1,57 @@
+#include "D:\Work T.Pongsak\Microcontroller\Work\LAB061-interrupt\LAB061-interrupt.h"
+int time10=0,sec,sec1;
+#int_timer0
+void time0_isr(){
+   time10++;
+   set_timer0(10);
+   if(time10==100){
+         time10 = 0;
+         sec++;
+   }
+}
+int LED(void);
+void main()
+{
+   setup_adc_ports(NO_ANALOGS);
+   setup_adc(ADC_OFF);
+   setup_psp(PSP_DISABLED);
+   setup_spi(SPI_SS_DISABLED);
+   setup_timer_0(RTCC_DIV_256);
+   setup_timer_1(T1_DISABLED);
+   setup_timer_2(T2_DISABLED,0,1);
+   setup_comparator(NC_NC_NC_NC);
+   setup_vref(FALSE);
+
+   // TODO: USER CODE!!
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_TIMER0);
+   set_tris_d(0x00);
+   output_d(0x00);
+   while(1){
+         if(sec==10);{
+            sec=0;
+            sec1++;
+//            if(sec1==10){
+  //             sec1=0;
+    //        }
+  //       }
+      }
+      LED();
+   }
+}
+int LED(){
+   char segment[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
+   int seg1,f,i;
+   seg1=0b11111101;
+   for(i=0;i<2;i++){
+      output_d(seg1);
+      if(f==0){
+         output_c(segment[sec]);
+      }else{
+         output_c(segment[sec1]);
+      }
+      delay_ms(1);
+      seg1 = seg1>>1;
+      f=~f;
+   }
+}

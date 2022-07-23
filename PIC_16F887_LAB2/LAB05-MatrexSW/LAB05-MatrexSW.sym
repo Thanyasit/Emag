@@ -1,0 +1,59 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01B-01C CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     @TRIS_C
+021     main.sw
+022     matrixSw.matsw
+023-02E matrixSw.segment
+02F     @delay_ms2.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+0004  @delay_ms2
+0103  main
+0018  matrixSw
+0103  @cinit
+
+Project Directory:
+    D:\Work T.Pongsak\Microcontroller\Work\LAB05-MatrexSW\
+
+Project Files:
+    LAB05-MatrexSW.c
+    LAB05-MatrexSW.h
+    C:\Program Files (x86)\PICC\devices\16F877A.h
+
+Units:
+    LAB05-MatrexSW.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      LAB05-MatrexSW.err
+    Ext Symbols: LAB05-MatrexSW.esym
+    INHX8:       LAB05-MatrexSW.hex
+    Symbols:     LAB05-MatrexSW.sym
+    List:        LAB05-MatrexSW.lst
+    Debug/COFF:  LAB05-MatrexSW.cof
+    Project:     LAB05-MatrexSW.PJT
+    Call Tree:   LAB05-MatrexSW.tre
+    Statistics:  LAB05-MatrexSW.sta
