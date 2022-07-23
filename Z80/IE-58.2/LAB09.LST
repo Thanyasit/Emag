@@ -1,0 +1,67 @@
+ 0000                           CPU"Z80.TBL"
+ 0000                           HOF"INT8"
+                        ;#############################################
+ 8000                           ORG 8000H
+ 8000                   START:
+ 8000 3E9A                      LD   A,9AH
+ 8002 D323                      OUT  (23H), A
+ 8004                   BEGIN:
+ 8004 210082                    LD   HL,FSTEP1_TAB
+ 8007 1604                      LD   D,4
+ 8009                   LOOPM:
+ 8009 7E                        LD   A,(HL)
+ 800A D322                      OUT  (22H),A
+ 800C CD0B81                    CALL  DELAY1S
+ 800F 23                        INC   HL
+ 8010 15                        DEC   D
+ 8011 20F6                      JR    NZ,LOOPM
+                        
+ 8013 18EF                      JR    BEGIN
+                        ;*****************************************
+ 8100                           ORG 8100H
+                        
+ 8100                   DELAY200MS:
+ 8100 C5                        PUSH BC
+ 8101 012878                    LD   BC,30760
+ 8104                   LOOPD20:
+ 8104 0B                        DEC  BC
+ 8105 78                        LD   A,B
+ 8106 B1                        OR   C
+ 8107 20FB                      JR   NZ,LOOPD20
+ 8109 C1                        POP  BC
+ 810A C9                        RET
+                        ;#################################
+ 810B                   DELAY1S:
+ 810B D5                        PUSH  DE
+ 810C 1605                      LD    D,5
+ 810E                   LOOP1S:
+ 810E CD0081                    CALL  DELAY200MS
+ 8111 15                        DEC   D
+ 8112 20FA                      JR    NZ,LOOP1S
+ 8114 D1                        POP   DE
+ 8115 C9                        RET
+                        
+                        ;**************************************
+ 8200                           ORG  8200H
+ 8200 01020408          FSTEP1_TAB:  DFB 01H,02H,04H,08H
+                        ;*****************************************
+ 8210                           ORG 8210H
+ 8210 03060B09          FSTEP2_TAB:  DFB 03H,06H,0BH,09H
+                        ;****************************
+ 8220                           ORG 8220H
+ 8220 01030206040B0809  HSTEP2_TAB:  DFB 01H,03H,02H,06H,04H,0BH,08H,09H,
+                        ;******************************
+ 8228                   END
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+ 0000                   	END
+8004  BEGIN              810B  DELAY1S            8100  DELAY200MS         
+8228  END                8200  FSTEP1_TAB         8210  FSTEP2_TAB         
+8220  HSTEP2_TAB         810E  LOOP1S             8104  LOOPD20            
+8009  LOOPM              8000  START              
+

@@ -1,0 +1,251 @@
+ 0000                               CPU     "Z80.TBL"
+ 0000                               HOF     "INT8"
+                        ; ***************************************
+ 008B =                 CW        EQU       8BH
+ 0023 =                 CONPORT   EQU       23H
+ 0022 =                 PORTC     EQU       22H
+ 0020 =                 PORTA     EQU       20H
+ 8250 =                 FRFLAG    EQU       8250H
+ 8251 =                 SPEEDVC   EQU       8251H
+ 8252 =                 STEPCOUNT EQU       8252H
+ 8253 =                 MUXDISP   EQU       8253H
+                        
+                        
+                        
+                        
+                        
+ 8000                         ORG     8000H
+ 8000                   MAIN:
+ 8000 3E8B                      LD      A ,CW
+ 8002 D323                      OUT     (CONPORT) ,A
+ 8004 210081                    LD      HL ,FSTEPTAB1
+ 8007 010082                    LD      BC ,DISPFTAB1
+ 800A 3E00                      LD      A, 0H
+ 800C 325282                    LD      (STEPCOUNT), A
+ 800F 3E15                      LD      A, 15H
+ 8011 325182                    LD      (SPEEDVC), A
+ 8014                   M:
+ 8014 CD9F80                    CALL    MUX
+ 8017 DB22                      IN      A, (PORTC)
+ 8019 CB5F                      BIT     3, A
+ 801B 20F7                      JR      NZ, M
+ 801D CDF080                    CALL    DELAY_20M
+ 8020                   STOPSW:
+ 8020 DB22                      IN      A, (PORTC)
+ 8022 CB67                      BIT     4, A
+ 8024 2008                      JR      NZ, FSW
+ 8026 CDF080                    CALL    DELAY_20M
+ 8029 010088                    LD      BC, DISPTAB4
+ 802C 18E6                      JR      M
+ 802E                   FSW:
+ 802E DB22                      IN      A, (PORTC)
+ 8030 CB6F                      BIT     5, A
+ 8032 2008                      JR      NZ, REVSW
+ 8034 CDF080                    CALL    DELAY_20M
+ 8037 3E01                      LD      A, 1
+ 8039 325082                    LD      (FRFLAG), A
+ 803C                   REVSW:
+ 803C DB22                      IN      A,  (PORTC)
+ 803E CB77                      BIT     6, A
+ 8040 2008                      JR      NZ, SPEEDSW
+ 8042 CDF080                    CALL    DELAY_20M
+ 8045 3E00                      LD      A, 0
+ 8047 325082                    LD      (FRFLAG), A
+ 804A                   SPEEDSW:
+ 804A DB22                      IN      A,  (PORTC)
+ 804C CB7F                      BIT     7, A
+ 804E 2006                      JR      NZ, DRIVEMOTER
+ 8050 CDF080                    CALL    DELAY_20M
+ 8053 CD3081                    CALL    SPEEDLEVEL
+ 8056                   DRIVEMOTER:
+ 8056 3A5282                    LD      A, (STEPCOUNT)
+ 8059 6F                        LD      L, A
+ 805A 7E                        LD      A, (HL)
+ 805B D320                      OUT     (PORTA), A
+ 805D D5                        PUSH    DE
+ 805E 3A5182                    LD      A, (SPEEDVC)
+ 8061 57                        LD      D, A
+ 8062                   SPEED:
+ 8062 CD9F80                    CALL    MUX
+ 8065 15                        DEC     D
+ 8066 7A                        LD      A, D
+ 8067 FE00                      CP      0
+ 8069 20F7                      JR      NZ, SPEED
+ 806B D1                        POP     DE
+ 806C 3A5082                    LD      A, (FRFLAG)
+ 806F FE01                      CP      1
+ 8071 200C                      JR      NZ, DSTEPC
+ 8073 3A5282                    LD      A, (STEPCOUNT)
+ 8076 3C                        INC     A
+ 8077 FE04                      CP      4
+ 8079 2010                      JR      NZ, SECON
+ 807B 3E00                      LD      A, 0
+ 807D 180C                      JR      SECON
+ 807F                   DSTEPC:
+ 807F 3A5282                    LD      A, (STEPCOUNT)
+ 8082 3D                        DEC     A
+ 8083 FEFF                      CP      -1
+ 8085 2004                      JR      NZ, SECON
+ 8087 3E04                      LD      A, 4
+ 8089 1800                      JR      SECON
+ 808B                   SECON:
+ 808B 325282                    LD      (STEPCOUNT), A
+ 808E 1890                      JR      STOPSW
+                        ;***********************************
+ 809F                           ORG     809FH
+ 809F                   MUX:
+ 809F 3A5382                    LD       A, (MUXDISP)
+ 80A2 4F                        LD       C, A
+ 80A3 0A                        LD       A, (BC)
+ 80A4 D301                      OUT     (01H), A
+ 80A6 79                        LD       A, C
+ 80A7 D300                      OUT     (00H), A
+ 80A9 CDE580                    CALL    DELAY_1M
+ 80AC 3E00                      LD       A, 0
+ 80AE D301                      OUT     (01H), A
+ 80B0 CDE580                    CALL    DELAY_1M
+ 80B3 0C                        INC      C
+ 80B4 79                        LD       A, C
+ 80B5 FE06                      CP       6
+ 80B7 2002                      JR       NZ, CP6
+ 80B9 3E00                      LD       A, 0
+ 80BB                   CP6:
+ 80BB 4F                        LD       C, A
+ 80BC 325382                    LD       (MUXDISP), A
+ 80BF C9                        RET
+                        ;***********************************
+ 8130                           ORG    8130H
+ 8130                   SPEEDLEVEL:
+ 8130 DB22                      IN      A, (PORTC)
+ 8132 E607                      AND     07H
+ 8134 FE01                      CP      01H
+ 8136 2014                      JR      NZ, MID
+ 8138 3E0F                      LD      A, 15
+ 813A 325182                    LD      (SPEEDVC), A
+ 813D 3A5082                    LD      A, (FRFLAG)
+ 8140 FE01                      CP      1
+ 8142 2003                      JR      NZ, LOR1
+ 8144 010082                    LD      BC, DISPFTAB1
+ 8147                   LOR1:
+ 8147 010085                    LD      BC, DISPRTAB1
+ 814A 1832                      JR      SRET
+ 814C                   MID:
+ 814C FE02                      CP      02H
+ 814E 2016                      JR      NZ, MAX
+ 8150 3E32                      LD      A, 50
+ 8152 325182                    LD      (SPEEDVC), A
+ 8155 3A5082                    LD      A, (FRFLAG)
+ 8158 FE01                      CP      1
+ 815A 2005                      JR      NZ, LOR2
+ 815C 010083                    LD      BC, DISPFTAB2
+ 815F 181D                      JR      SRET
+ 8161                   LOR2:
+ 8161 010086                    LD      BC, DISPRTAB2
+ 8164 1818                      JR      SRET
+ 8166                   MAX:
+ 8166 FE04                      CP      04H
+ 8168 2014                      JR      NZ, SRET
+ 816A 3EFA                      LD      A, 250
+ 816C 325182                    LD      (SPEEDVC), A
+ 816F 3A5082                    LD      A, (FRFLAG)
+ 8172 FE01                      CP      1
+ 8174 2005                      JR      NZ, LOR3
+ 8176 010082                    LD      BC, DISPFTAB1
+ 8179 1803                      JR      SRET
+ 817B                   LOR3:
+ 817B 010085                    LD      BC, DISPRTAB1
+ 817E                   SRET:
+ 817E C35680                    JP      DRIVEMOTER
+                        ;*****************************
+ 80E5                           ORG      80E5H
+ 80E5                   DELAY_1M:
+ 80E5 C5                        PUSH     BC
+ 80E6 019900                    LD       BC, 153
+ 80E9                   LOOP:
+ 80E9 0B                        DEC      BC
+ 80EA 78                        LD       A, B
+ 80EB B1                        OR       C
+ 80EC 20FB                      JR       NZ, LOOP
+ 80EE C1                        POP      BC
+ 80EF C9                        RET
+                        ;*****************************
+ 80F0                           ORG      80F0H
+ 80F0                   DELAY_20M:
+ 80F0 C5                        PUSH     BC
+ 80F1 01040C                    LD       BC, 3076
+ 80F4                   LOOPB:
+ 80F4 0B                        DEC      BC
+ 80F5 78                        LD       A, B
+ 80F6 B1                        OR       C
+ 80F7 20FB                      JR       NZ, LOOPB
+ 80F9 C1                        POP      BC
+ 80FA C9                        RET
+                        ;**************************************
+ 8100                           ORG 8100H
+ 8100 01020408          FSTEPTAB1:  DFB 01H,02H,04H,08H
+                        ;****************************************
+ 8104                           ORG 8104H
+ 8104 03060B09          FSTEPTAB2:  DFB 03H,06H,0BH,09H
+                        ;****************************
+ 8108                           ORG 8108H
+ 8108 09080B0406020301  HSTEPTAB:  DFB 09H,08H,0BH,04H,06H,02H,03H,01H
+                        ;*****************************
+ 8200                           ORG 8200H
+ 8200 71306D733006      DISPFTAB1:  DFB 71H,30H,6DH,73H,30H,06H
+                        ;*********************************
+ 8300                           ORG 8300H
+ 8300 71306D73305B      DISPFTAB2:  DFB 71H,30H,6DH,73H,30H,5BH
+                        ;*********************************
+ 8400                           ORG 8400H
+ 8400 71306D73304F      DISPFTAB3:  DFB 71H,30H,6DH,73H,30H,4FH
+                        ;*********************************
+ 8500                           ORG 8500H
+ 8500 50306D733006      DISPRTAB1:  DFB 50H,30H,6DH,73H,30H,06H
+                        ;*********************************
+ 8600                           ORG 8600H
+ 8600 50306D73305B      DISPRTAB2:  DFB 50H,30H,6DH,73H,30H,5BH
+                        ;*********************************
+ 8700                           ORG 8700H
+ 8700 50306D73304F      DISPRTAB3:  DFB 50H,30H,6DH,73H,30H,4FH
+                        ;*********************************
+ 8800                           ORG 8800H
+ 8800 40404040403F      DISPTAB4:  DFB  40H,40H,40H,40H,40H,3FH
+                        ;*********************************
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+ 0000                   	END
+0023  CONPORT            80BB  CP6                008B  CW                 
+80E5  DELAY_1M           80F0  DELAY_20M          8200  DISPFTAB1          
+8300  DISPFTAB2          8400  DISPFTAB3          8500  DISPRTAB1          
+8600  DISPRTAB2          8700  DISPRTAB3          8800  DISPTAB4           
+8056  DRIVEMOTER         807F  DSTEPC             8250  FRFLAG             
+8100  FSTEPTAB1          8104  FSTEPTAB2          802E  FSW                
+8108  HSTEPTAB           80E9  LOOP               80F4  LOOPB              
+8147  LOR1               8161  LOR2               817B  LOR3               
+8014  M                  8000  MAIN               8166  MAX                
+814C  MID                809F  MUX                8253  MUXDISP            
+0020  PORTA              0022  PORTC              803C  REVSW              
+808B  SECON              8062  SPEED              8130  SPEEDLEVEL         
+804A  SPEEDSW            8251  SPEEDVC            817E  SRET               
+8252  STEPCOUNT          8020  STOPSW             
+

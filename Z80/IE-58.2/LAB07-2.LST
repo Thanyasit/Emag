@@ -1,0 +1,163 @@
+ 0000                           CPU     "Z80.TBL"
+ 0000                           HOF     "INT8"
+                        ; ***************************************
+ 008A =                 CW      EQU     8AH
+ 0023 =                 CONPORT EQU     23H
+ 00FE =                 SCAN_C0 EQU     0FEH  ;1111 1110
+ 00FD =                 SCAN_C1 EQU     0FDH  ;1111 1101
+ 00FB =                 SCAN_C2 EQU     0FBH  ;1111 1011
+ 0022 =                 PORTC   EQU     22H
+ 0004 =                 R1      EQU     4 ;0000 0100
+ 0005 =                 R2      EQU     5 ;0000 0101
+ 0006 =                 R3      EQU     6 ;0000 0110
+ 0007 =                 R4      EQU     7 ;0000 0111
+ 0020 =                 PORTA   EQU     20H
+ 0021 =                 PORTB   EQU     21H
+                        
+ 8000                           ORG     8000H
+ 8000                   MAIN:
+ 8000 210082                    LD      HL, TAB
+ 8003 3E8A                      LD      A, CW
+ 8005 D323                      OUT     (CONPORT), A
+ 8007 3EFF                      LD      A, 0FFH
+ 8009 D320                      OUT     (PORTA), A
+ 800B                   BEGIN:
+ 800B 3EFE                      LD      A, SCAN_C0
+ 800D D322                      OUT     (PORTC), A
+                        
+ 800F DB22                      IN      A,(PORTC)
+                        
+ 8011 CB67                      BIT     R1, A
+ 8013 284B                      JR      Z, DIGIT_1
+ 8015 CB6F                      BIT     R2, A
+ 8017 284E                      JR      Z, DIGIT_4
+ 8019 CB77                      BIT     R3, A
+ 801B 2851                      JR      Z, DIGIT_7
+ 801D CB7F                      BIT     R4, A
+ 801F 2854                      JR      Z, DIGIT_STAR
+                        
+ 8021 CD0081                    CALL    DELAY_30M
+                        
+ 8024 3EFD                      LD      A, SCAN_C1
+ 8026 D322                      OUT     (PORTC), A
+                        
+ 8028 DB22                      IN      A,(PORTC)
+                        
+ 802A CB67                      BIT     R1, A
+ 802C 284E                      JR      Z, DIGIT_2
+ 802E CB6F                      BIT     R2, A
+ 8030 2851                      JR      Z, DIGIT_5
+ 8032 CB77                      BIT     R3, A
+ 8034 2854                      JR      Z, DIGIT_8
+ 8036 CB7F                      BIT     R4, A
+ 8038 2857                      JR      Z, DIGIT_0
+                        
+ 803A CD0081                    CALL    DELAY_30M
+                        
+ 803D 3EFB                      LD      A, SCAN_C2
+ 803F D322                      OUT     (PORTC), A
+                        
+ 8041 DB22                      IN      A,(PORTC)
+                        
+ 8043 CB67                      BIT     R1, A
+ 8045 2851                      JR      Z, DIGIT_3
+ 8047 CB6F                      BIT     R2, A
+ 8049 2854                      JR      Z, DIGIT_6
+ 804B CB77                      BIT     R3, A
+ 804D 2857                      JR      Z, DIGIT_9
+ 804F CB7F                      BIT     R4, A
+ 8051 285A                      JR      Z, DIGIT_STAR1
+ 8053                   CONTINUE:
+ 8053 CD0081                    CALL    DELAY_30M
+ 8056 18B3                      JR      BEGIN
+                        ;******************************
+ 8060                           ORG 8060H
+ 8060                   DIGIT_1:
+ 8060 2E01                      LD      L, 1
+ 8062 7E                        LD      A, (HL)
+ 8063 D320                      OUT     (PORTA), A
+ 8065 18EC                      JR      CONTINUE
+ 8067                   DIGIT_4:
+ 8067 2E04                      LD      L, 4
+ 8069 7E                        LD      A, (HL)
+ 806A D320                      OUT     (PORTA), A
+ 806C 18E5                      JR      CONTINUE
+ 806E                   DIGIT_7:
+ 806E 2E07                      LD      L, 7
+ 8070 7E                        LD      A, (HL)
+ 8071 D320                      OUT     (PORTA), A
+ 8073 18DE                      JR      CONTINUE
+ 8075                   DIGIT_STAR:
+ 8075 2E0A                      LD      L, 0AH
+ 8077 7E                        LD      A, (HL)
+ 8078 D320                      OUT     (PORTA), A
+ 807A 18D7                      JR      CONTINUE
+ 807C                   DIGIT_2:
+ 807C 2E02                      LD      L, 2
+ 807E 7E                        LD      A, (HL)
+ 807F D320                      OUT     (PORTA), A
+ 8081 18D0                      JR      CONTINUE
+ 8083                   DIGIT_5:
+ 8083 2E05                      LD      L, 5
+ 8085 7E                        LD      A, (HL)
+ 8086 D320                      OUT     (PORTA), A
+ 8088 18C9                      JR      CONTINUE
+ 808A                   DIGIT_8:
+ 808A 2E08                      LD      L, 8
+ 808C 7E                        LD      A, (HL)
+ 808D D320                      OUT     (PORTA), A
+ 808F 18C2                      JR      CONTINUE
+ 8091                   DIGIT_0:
+ 8091 2E00                      LD      L, 0
+ 8093 7E                        LD      A, (HL)
+ 8094 D320                      OUT     (PORTA), A
+ 8096 18BB                      JR      CONTINUE
+ 8098                   DIGIT_3:
+ 8098 2E03                      LD      L, 3
+ 809A 7E                        LD      A, (HL)
+ 809B D320                      OUT     (PORTA), A
+ 809D 18B4                      JR      CONTINUE
+ 809F                   DIGIT_6:
+ 809F 2E06                      LD      L, 6
+ 80A1 7E                        LD      A, (HL)
+ 80A2 D320                      OUT     (PORTA), A
+ 80A4 18AD                      JR      CONTINUE
+ 80A6                   DIGIT_9:
+ 80A6 2E09                      LD      L, 9
+ 80A8 7E                        LD      A, (HL)
+ 80A9 D320                      OUT     (PORTA), A
+ 80AB 18A6                      JR      CONTINUE
+ 80AD                   DIGIT_STAR1:
+ 80AD 2E0B                      LD      L, 0BH
+ 80AF 7E                        LD      A, (HL)
+ 80B0 D320                      OUT     (PORTA), A
+ 80B2 189F                      JR      CONTINUE
+                        ;********************************
+ 8100                           ORG 8100H
+ 8100                   DELAY_30M:
+ 8100 C5                        PUSH     BC
+ 8101 011270                    LD       BC, 7012H
+ 8104                   LOOPM:
+ 8104 0B                        DEC      BC
+ 8105 78                        LD       A, B
+ 8106 B1                        OR       C
+ 8107 20FB                      JR       NZ, LOOPM
+ 8109 C1                        POP      BC
+ 810A C9                        RET
+                        ;***************************************************
+ 8200                           ORG 8200H
+ 8200 C0F9A4B0999282F880TAB: DFB 0C0H,0F9H,0A4H,0B0H,99H,92H,82H,0F8H,80H,90H,89H,0C9H,
+ 820C                   END
+ 0000                   	END
+800B  BEGIN              0023  CONPORT            8053  CONTINUE           
+008A  CW                 8100  DELAY_30M          8091  DIGIT_0            
+8060  DIGIT_1            807C  DIGIT_2            8098  DIGIT_3            
+8067  DIGIT_4            8083  DIGIT_5            809F  DIGIT_6            
+806E  DIGIT_7            808A  DIGIT_8            80A6  DIGIT_9            
+8075  DIGIT_STAR         80AD  DIGIT_STAR1        820C  END                
+8104  LOOPM              8000  MAIN               0020  PORTA              
+0021  PORTB              0022  PORTC              0004  R1                 
+0005  R2                 0006  R3                 0007  R4                 
+00FE  SCAN_C0            00FD  SCAN_C1            00FB  SCAN_C2            
+8200  TAB                
+

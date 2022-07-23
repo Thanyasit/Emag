@@ -1,0 +1,138 @@
+ 0000                               CPU     "Z80.TBL"
+ 0000                               HOF     "INT8"
+                        ; ***************************************
+ 008B =                 CW        EQU       8BH
+ 0023 =                 CONPORT   EQU       23H
+ 0022 =                 PORTC     EQU       22H
+ 0020 =                 PORTA     EQU       20H
+ 8150 =                 FRFLAG    EQU       8150H
+ 8151 =                 SPEEDVC   EQU       8151H
+ 8152 =                 STEPCOUNT EQU       8152H
+ 8153 =                 MUXDISP   EQU       8153H
+                        
+                        
+                        
+                        
+ 8000                         ORG     8000H
+ 8000                   MAIN:
+ 8000 3E8B                      LD      A ,CW
+ 8002 D323                      OUT     (CONPORT) ,A
+ 8004 210081                    LD      HL ,FSTEPTAB1
+ 8007 011081                    LD      BC ,DISPFTAB1
+ 800A 3E00                      LD      A, 0H
+ 800C 325281                    LD      (STEPCOUNT), A
+ 800F 3E15                      LD      A, 15H
+ 8011 325181                    LD      (SPEEDVC), A
+ 8014                   M:
+ 8014 CD9080                    CALL    MUX
+ 8017 DB22                      IN      A, (PORTC)
+ 8019 CB5F                      BIT     3, A
+ 801B 20F7                      JR      NZ, M
+ 801D                   STOPSW:
+ 801D 3E01                      LD      A, 01
+ 801F D301                      OUT     (01H), A
+ 8021 3E00                      LD       A, 0
+ 8023 D300                      OUT     (00H), A
+ 8025 CDE580                    CALL    DELAY_1M
+ 8028 3E00                      LD       A, 0
+ 802A D301                      OUT     (01H), A
+ 802C CDE580                    CALL    DELAY_1M
+ 802F 18EC                      JR      STOPSW
+                        ;***********************************
+ 8090                           ORG     8090H
+ 8090                   MUX:
+ 8090 3A5381                    LD       A, (MUXDISP)
+ 8093 4F                        LD       C, A
+ 8094 0A                        LD       A, (BC)
+ 8095 D301                      OUT     (01H), A
+ 8097 79                        LD       A, C
+ 8098 D300                      OUT     (00H), A
+ 809A CDE580                    CALL    DELAY_1M
+ 809D 3E00                      LD       A, 0
+ 809F D301                      OUT     (01H), A
+ 80A1 CDE580                    CALL    DELAY_1M
+ 80A4 0C                        INC      C
+ 80A5 79                        LD       A, C
+ 80A6 FE06                      CP       6
+ 80A8 2002                      JR       NZ, CP6
+ 80AA 3E00                      LD       A, 0
+ 80AC                   CP6:
+ 80AC 4F                        LD       C, A
+ 80AD 325381                    LD       (MUXDISP), A
+ 80B0 C9                        RET
+                        ;*****************************
+ 80E5                           ORG      80E5H
+ 80E5                   DELAY_1M:
+ 80E5 C5                        PUSH     BC
+ 80E6 019900                    LD       BC, 153
+ 80E9                   LOOP:
+ 80E9 0B                        DEC      BC
+ 80EA 78                        LD       A, B
+ 80EB B1                        OR       C
+ 80EC 20FB                      JR       NZ, LOOP
+ 80EE C1                        POP      BC
+ 80EF C9                        RET
+                        ;**************************************
+ 8100                           ORG 8100H
+ 8100 01020408          FSTEPTAB1:  DFB 01H,02H,04H,08H
+                        ;****************************************
+ 8104                           ORG 8104H
+ 8104 03060B09          FSTEPTAB2:  DFB 03H,06H,0BH,09H
+                        ;****************************
+ 8108                           ORG 8108H
+ 8108 09080B0406020301  HSTEPTAB:  DFB 09H,08H,0BH,04H,06H,02H,03H,01H
+                        ;******************************
+ 8110                           ORG 8110H
+ 8110 F1CF928CCFF9      DISPFTAB1:  DFB 0F1H,0CFH,92H,8CH,0CFH,0F9H
+                        ;*********************************
+ 8116                           ORG 8116H
+ 8116 F1CF928CCFA4      DISPFTAB2:  DFB 0F1H,0CFH,92H,8CH,0CFH,0A4H
+                        ;*********************************
+ 811C                           ORG 811CH
+ 811C F1CF928CCFB0      DISPFTAB3:  DFB 0F1H,0CFH,92H,8CH,0CFH,0B0H
+                        ;*********************************
+ 8122                           ORG 8122H
+ 8122 AFCF928CCFF9      DISPRTAB1:  DFB 0AFH,0CFH,92H,8CH,0CFH,0F9H
+                        ;*********************************
+ 8128                           ORG 8128H
+ 8128 AFCF928CCFA4      DISPRTAB2:  DFB 0AFH,0CFH,92H,8CH,0CFH,0A4H
+                        ;*********************************
+ 812E                           ORG 812EH
+ 812E AFCF928CCFB0      DISPRTAB3:  DFB 0AFH,0CFH,92H,8CH,0CFH,0B0H
+                        ;*********************************
+ 8134                           ORG 8134H
+ 8134 BFBFBFBFBFC0      DISPTAB4:  DFB  0BFH,0BFH,0BFH,0BFH,0BFH,0C0H
+                        ;*********************************
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+ 0000                   	END
+0023  CONPORT            80AC  CP6                008B  CW                 
+80E5  DELAY_1M           8110  DISPFTAB1          8116  DISPFTAB2          
+811C  DISPFTAB3          8122  DISPRTAB1          8128  DISPRTAB2          
+812E  DISPRTAB3          8134  DISPTAB4           8150  FRFLAG             
+8100  FSTEPTAB1          8104  FSTEPTAB2          8108  HSTEPTAB           
+80E9  LOOP               8014  M                  8000  MAIN               
+8090  MUX                8153  MUXDISP            0020  PORTA              
+0022  PORTC              8151  SPEEDVC            8152  STEPCOUNT          
+801D  STOPSW             
+

@@ -1,0 +1,141 @@
+ 0000                           CPU     "Z80.TBL"
+ 0000                           HOF     "INT8"
+                        ; ***************************************
+ 0089 =                 CW      EQU     89H
+ 0023 =                 CONPORT EQU     23H
+ 0022 =                 PORTC   EQU     22H
+ 0020 =                 PORTA   EQU     20H
+ 0021 =                 PORTB   EQU     21H
+ 8400 =                 FLAG    EQU     8400H
+ 8401 =                 SEC     EQU     8401H
+ 8402 =                 SEC10   EQU     8402H
+ 8403 =                 SEC1    EQU     8403H
+                        
+ 8000                           ORG     8000H
+ 8000                   MAIN:
+ 8000 3E89                      LD      A, CW
+ 8002 D323                      OUT     (CONPORT), A
+ 8004                   RESET:
+ 8004 3A0084                    LD      A, (FLAG)
+ 8007 CB87                      RES     0, A
+ 8009 320084                    LD      (FLAG), A
+ 800C 3E3F                      LD      A, 3FH
+ 800E D320                      OUT     (PORTA), A
+ 8010 3EC0                      LD      A, 0C0H
+ 8012 D321                      OUT     (PORTB), A
+ 8014                   SW1:
+ 8014 DB22                      IN      A, (PORTC)
+ 8016 CB47                      BIT     0, A
+ 8018 20FA                      JR      NZ, SW1
+                        
+ 801A CD0083                    CALL    DELAY_10M
+ 801D                   SEC0:
+ 801D 3E00                      LD      A, 00H
+ 801F 320184                    LD      (SEC), A
+ 8022                   COUNT:
+ 8022 1664                      LD      D, 64H
+ 8024 3A0184                    LD      A, (SEC)
+ 8027 E60F                      AND     0FH
+ 8029 FE0A                      CP      0AH
+ 802B 200A                      JR      NZ, NORMAL
+ 802D 3A0184                    LD      A, (SEC)
+ 8030 C606                      ADD     A, 06H
+ 8032 320184                    LD      (SEC), A
+ 8035 E60F                      AND     0FH
+ 8037                   NORMAL:
+ 8037 320384                    LD      (SEC1), A
+ 803A 3A0184                    LD      A,(SEC)
+ 803D CB3F                      SRL     A
+ 803F CB3F                      SRL     A
+ 8041 CB3F                      SRL     A
+ 8043 CB3F                      SRL     A
+ 8045 320284                    LD      (SEC10), A
+ 8048 210085                    LD      HL, ATAB
+ 804B 3A0384                    LD      A, (SEC1)
+ 804E 6F                        LD      L, A
+ 804F 7E                        LD      A, (HL)
+ 8050 D321                      OUT     (PORTB), A
+ 8052 210086                    LD      HL, BTAB
+ 8055 3A0284                    LD      A, (SEC10)
+ 8058 6F                        LD      L, A
+ 8059 7E                        LD      A, (HL)
+ 805A D320                      OUT     (PORTA), A
+ 805C                   DELAY:
+ 805C CD0083                    CALL    DELAY_10M
+ 805F                   SW_RESET:
+ 805F DB22                      IN      A, (PORTC)
+ 8061 CB57                      BIT     2, A
+ 8063 289F                      JR      Z, RESET
+ 8065                   SW_STOP:
+ 8065 DB22                      IN      A, (PORTC)
+ 8067 CB4F                      BIT     1, A
+ 8069 200D                      JR      NZ, SW2
+                        
+ 806B CD0083                    CALL    DELAY_10M
+                        
+ 806E 3A0084                    LD      A, (FLAG)
+ 8071 CBC7                      SET     0, A
+ 8073 320084                    LD      (FLAG), A
+ 8076 1813                      JR      DCOUNT
+ 8078                   SW2:
+ 8078 DB22                      IN      A, (PORTC)
+ 807A CB47                      BIT     0, A
+ 807C 200D                      JR      NZ, DCOUNT
+                        
+ 807E CD0083                    CALL    DELAY_10M
+                        
+ 8081 3A0084                    LD      A, (FLAG)
+ 8084 CB87                      RES     0, A
+ 8086 320084                    LD      (FLAG), A
+ 8089 1664                      LD      D, 64H
+ 808B                   DCOUNT:
+ 808B 15                        DEC     D
+ 808C 7A                        LD      A, D
+ 808D FE00                      CP      00
+ 808F 20CB                      JR      NZ, DELAY
+ 8091 3A0084                    LD      A, (FLAG)
+ 8094 CB47                      BIT     0, A
+ 8096 2804                      JR      Z, ISEC
+ 8098 1601                      LD      D, 01H
+ 809A 20C0                      JR      NZ, DELAY
+ 809C                   ISEC:
+ 809C 3A0184                    LD      A, (SEC)
+ 809F 3C                        INC     A
+ 80A0 320184                    LD      (SEC), A
+ 80A3 FE9A                      CP      9AH
+ 80A5 CA1D80                    JP      Z, SEC0
+ 80A8 C32280                    JP      COUNT
+                        ;**********************************************
+ 8300                           ORG     8300H
+ 8300                   DELAY_10M:
+ 8300 C5                          PUSH     BC
+ 8301 010206                      LD       BC, 0602H
+ 8304                   LOOPM:
+ 8304 0B                          DEC      BC
+ 8305 78                          LD       A, B
+ 8306 B1                          OR       C
+ 8307 20FB                        JR       NZ, LOOPM
+ 8309 C1                          POP      BC
+ 830A C9                          RET
+                        
+                        ;**************************************************
+ 8500                             ORG 8500H
+ 8500 C0F9A4B0999282F880ATAB: DFB 0C0H,0F9H,0A4H,0B0H,99H,92H,82H,0F8H,80H,90H
+                        
+                        
+                        ;**************************************************
+ 8600                             ORG 8600H
+ 8600 3F065B4F666D7D077FBTAB: DFB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH
+                        
+                        
+ 0000                   	END
+8500  ATAB               8600  BTAB               0023  CONPORT            
+8022  COUNT              0089  CW                 808B  DCOUNT             
+805C  DELAY              8300  DELAY_10M          8400  FLAG               
+809C  ISEC               8304  LOOPM              8000  MAIN               
+8037  NORMAL             0020  PORTA              0021  PORTB              
+0022  PORTC              8004  RESET              8401  SEC                
+801D  SEC0               8403  SEC1               8402  SEC10              
+8014  SW1                8078  SW2                805F  SW_RESET           
+8065  SW_STOP            
+

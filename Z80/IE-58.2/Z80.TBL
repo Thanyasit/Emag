@@ -1,0 +1,223 @@
+1, "B","C","D","E","H","L","(HL)","A"
+2, "B","C","D","E","H","L","!!!!","A"
+3, "NZ","Z","NC","C","PO","PE","P","M"
+4, "BC","DE","HL","SP"
+5, "IX","IY"
+*;NUM	START	LENGTH	EXP		LOW	HIGH	;COMMENT
+ 1,	2,	3,	@1,		0,	7	;Register: bit 2
+ 2,	5,	3,	@1,		0,	7	;Register: bit 5
+ 3,	13,	3,	@1,		0,	7	;Register: bit 13
+ 4,	2,	3,	@2,		0,	7	;Register - (HL): bit 2
+ 5,	10,	3,	@2,		0,	7	;Register - (HL): bit 10
+ 6,	13,	3,	@2,		0,	7	;Register - (HL): bit 13
+ 7,	2,	3,	@3,		0,	7	;Conditional branch
+ 8,	2,	2,	@4,		0,	3	;Reg Pair: bit 2
+ 9,	10,	2,	@4,		0,	3	;Reg Pair: bit 10
+10,	2,	1,	@5,		0,	1	;Indexed Reg
+11,	10,	3,	#,		0,	7	;Bit Number: bit 10
+12,	26,	3,	#,		0,	7	;Bit Number: bit 26
+13,	8,	16,	INV # >> 16,	0,	65535	;Direct: bit 8
+14,	16,	16,	INV # >> 16,	0,	65535	;Direct: bit 16
+15,	8,	8,	#,		-128,	255	;Im: bit 8
+16,	24,	8,	#,		-128,	255	;Im: bit 24
+17,	8,	16,	INV # >> 16,	-32768, 65535	;Long Im: bit 8
+18,	16,	16,	INV # >> 16,	-32768, 65535	;Long Im: bit 16
+19,	8,	8,	#-$-`,		$-126,	$+129	;Relative
+20,	16,	8,	#,		-128,	127	;Displacement: one byte
+21,	8,	8,	#,		0,	255	;Port
+22,	2,	6,	#,		0,	63	;Restart
+*
+ 1, {15}^0000:			;Immediate
+ 2, {2}^00:			;Register
+ 3, ({10}{20})^DD0000:		;Indexed
+ 4, {3}^CB00:			;Register 2nd Byte
+ 5, {13}^000000:		;Direct
+ 6, {19}^0000:			;Relative
+ 7, {11},{3}^0000:		;Direct Bit
+ 8, {12},({10}{20})^DDCB0000:	;Indexed
+ 9, {1}^00:			;Register (INC, DEC)
+10, ({21})^0000:		;Port
+11, {5},(C)^0000:		;Indexed Port IN
+12, {5}^0000:			;Indexed Port OUT
+13, ({21}),A^0000:		;Port OUT
+14, {22}^00:			;Restart
+15, ,({13})^000000:		;Direct Addressing LD
+16, {1},{2}^00: 		;Register to Register LD
+17, ,({14})^00000000:		;LD RP Direct
+18, {1},{15}^0000:		;LD Reg Immediate
+19, {8},{17}^000000:		;LD RP Immediate
+20, {10},{18}^00000000: 	;LD In Immediate
+21, {5},({10}{20})^DD0000:	;LD Reg Indexed
+22, {8}^00:			;Reg Pair
+23, {9},({14})^ED4B0000:
+24, ({14}),{9}^ED430000:	;Store RP in Direct
+25, ({14}),{10}^DD220000:	;Store In in Direct
+26, ({10}{20}),{16}^DD360000:	;Load Im in Indexed
+27, ({10}{20}),{6}^DD7000:	;Load In Mem from Reg
+28, {7},{13}^000000:		;Conditional Branch
+29, {7}^00:			;Conditional Return
+30, {10},({14})^DD2A0000:	;Load In from Direct
+31, ({13}),A^320000:
+32, ({13}),HL^220000:
+33, {9}^0000:
+34, {10}^DD00:			;IX, IY
+*
+ADC A,|2^88:
+ADC A,|3^DD8E00:
+ADC A,|1^CE00:
+ADC HL,|33^ED4A:
+ADD A,|2^80:
+ADD A,|3^DD8600:
+ADD A,|1^C600:
+ADD HL,|22^09:
+ADD IX,BC^DD09:
+ADD IX,DE^DD19:
+ADD IX,IX^DD29:
+ADD IX,SP^DD39:
+ADD IY,BC^FD09:
+ADD IY,DE^FD19:
+ADD IY,IY^FD29:
+ADD IY,SP^FD39:
+AND |2^A0:
+AND |3^DDA600:
+AND |1^E600:
+BIT|7^CB40:
+BIT|8^DDCB0046:
+CALL |5^CD0000:
+CALL |28^C40000:
+CCF^3F:
+CP |2^B8:
+CP |3^DDBE00:
+CP |1^FE00:
+CPD^EDA9:
+CPDR^EDB9:
+CPI^EDA1:
+CPIR^EDB1:
+CPL^2F:
+DAA^27:
+DEC |9^05:
+DEC |22^0B:
+DEC |34^DD2B:
+DEC |3^DD3500:
+DI^F3:
+DJNZ|6^1000:
+EI^FB:
+EX AF,AF'^08:
+EX DE,HL^EB:
+EX (SP),HL^E3:
+EX (SP),|34^DDE3:
+EXX^D9:
+HALT^76:
+IM 0^ED46:
+IM 1^ED56:
+IM 2^ED5E:
+IN |11^ED40:
+IN A,|10^DB00:
+INC |9^04:
+INC |22^03:
+INC |34^DD23:
+INC |3^DD3400:
+IND^EDAA:
+INDR^EDBA:
+INI^EDA2:
+INIR^EDB2:
+JP|5^C30000:
+JP|28^C20000:
+JP (HL)^E9:
+JP (IX)^DDE9:
+JP (IY)^FDE9:
+JR C,|6^3800:
+JR |6^1800:
+JR NC,|6^3000:
+JR NZ,|6^2000:
+JR Z,|6^2800:
+LD A,I^ED57:
+LD A,R^ED5F:
+LD A,(BC)^0A:
+LD A,(DE)^1A:
+LD I,A^ED47:
+LD R,A^ED4F:
+LD (BC),A^02:
+LD (DE),A^12:
+LD SP,HL^F9:
+LD SP,|34^DDF9: 		;LD SP,In
+LD |16^40:			;LD reg,reg
+LD HL|15^2A0000:		;LD HL,(addr)
+LD |23^ED4B0000:		;LD rp,(addr)
+LD |30^DD2A0000:		;LD In,(addr)
+LD |27^DD7000:			;LD (xy + disp),reg
+LD |26^DD360000:		;LD (xy + disp),data
+LD |21^DD4600:			;LD reg,(xy + disp)
+LD A|15^3A0000: 		;LD A,(addr)
+LD |18^0600:			;LD reg,data
+LD |19^010000:			;LD rp,data16
+LD |20^DD210000:		;LD xy,data16
+LD |31^320000:			;LD (addr),A
+LD |32^220000:			;LD (addr),HL
+LD |24^ED430000:		;LD (addr),rp
+LD |25^DD220000:		;LD (addr),xy
+LDD^EDA8:
+LDDR^EDB8:
+LDI^EDA0:
+LDIR^EDB0:
+NEG^ED44:
+NOP^00:
+OR |2^B0:
+OR |3^DDB600:
+OR |1^F600:
+OTDR^EDBB:
+OTIR^EDB3:
+OUT (C),|12^ED41:
+OUTD^EDAB:
+OUTI^EDA3:
+OUT |13^D300:
+POP BC^C1:
+POP DE^D1:
+POP HL^E1:
+POP AF^F1:
+POP |34^DDE1:
+PUSH BC^C5:
+PUSH DE^D5:
+PUSH HL^E5:
+PUSH AF^F5:
+PUSH |34^DDE5:
+RES|7^CB80:
+RES|8^DDCB0086:
+RET^C9:
+RET |29^C0:
+RETI^ED4D:
+RETN^ED45:
+RL |4^CB10:
+RL |3^DDCB0016:
+RLA^17:
+RLC |4^CB00:
+RLC |3^DDCB0006:
+RLCA^07:
+RLD^ED6F:
+RR |4^CB18:
+RR |3^DDCB001E:
+RRA^1F:
+RRC |4^CB08:
+RRC |3^DDCB000E:
+RRCA^0F:
+RRD^ED67:
+RST |14^C7:
+SBC A,|2^98:
+SBC A,|3^DD9E00:
+SBC A,|1^DE00:
+SBC HL,|33^ED42:
+SCF^37:
+SET|7^CBC0:
+SET|8^DDCB00C6:
+SLA |4^CB20:
+SLA |3^DDCB0026:
+SRA |4^CB28:
+SRA |3^DDCB002E:
+SRL |4^CB38:
+SRL |3^DDCB003E:
+SUB |2^90:
+SUB |3^DD9600:
+SUB |1^D600:
+XOR |2^A8:
+XOR |3^DDAE00:
+XOR |1^EE00:

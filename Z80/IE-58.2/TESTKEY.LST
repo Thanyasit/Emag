@@ -1,0 +1,66 @@
+ 0000                           CPU     "Z80.TBL"
+ 0000                           HOF     "INT8"
+                        ; ***************************************
+ 0004 =                 R1      EQU     4
+ 0005 =                 R2      EQU     5
+ 0006 =                 R3      EQU     6
+ 0007 =                 R4      EQU     7
+ 00FE =                 SCAN_C0 EQU     0FEH
+ 00FD =                 SCAN_C1 EQU     0FDH
+ 00FB =                 SCAN_C2 EQU     0FBH
+ 0022 =                 PORTC   EQU     22H
+                        
+                        
+ 8200                                   ORG 8200H
+ 8200                   S_SCAN_2:
+ 8200 3EFE                      LD      A, SCAN_C0
+ 8202 D322                      OUT     (PORTC), A
+                        
+ 8204 DB22                      IN      A,(PORTC)
+                        
+ 8206 CB67                      BIT     R1, A
+ 8208 28F6                      JR      Z, S_SCAN_2
+ 820A CB6F                      BIT     R2, A
+ 820C 28F2                      JR      Z, S_SCAN_2
+ 820E CB77                      BIT     R3, A
+ 8210 28EE                      JR      Z, S_SCAN_2
+ 8212 CB7F                      BIT     R4, A
+ 8214 28EA                      JR      Z, S_SCAN_2
+                        
+ 8216 3EFD                      LD      A, SCAN_C1
+ 8218 D322                      OUT     (PORTC), A
+                        
+ 821A DB22                      IN      A,(PORTC)
+                        
+ 821C CB67                      BIT     R1, A
+ 821E 28E0                      JR      Z, S_SCAN_2
+ 8220 CB6F                      BIT     R2, A
+ 8222 28DC                      JR      Z, S_SCAN_2
+ 8224 CB77                      BIT     R3, A
+ 8226 28D8                      JR      Z, S_SCAN_2
+ 8228 CB7F                      BIT     R4, A
+ 822A 28D4                      JR      Z, S_SCAN_2
+                        
+                        
+ 822C 3EFB                      LD      A, SCAN_C2
+ 822E D322                      OUT     (PORTC), A
+                        
+ 8230 DB22                      IN      A,(PORTC)
+                        
+ 8232 CB67                      BIT     R1, A
+ 8234 28CA                      JR      Z, S_SCAN_2
+ 8236 CB6F                      BIT     R2, A
+ 8238 28C6                      JR      Z, S_SCAN_2
+ 823A CB77                      BIT     R3, A
+ 823C 28C2                      JR      Z, S_SCAN_2
+ 823E CB7F                      BIT     R4, A
+ 8240 28BE                      JR      Z, S_SCAN_2
+                        
+                        
+                        
+ 8242 C9                        RET 0000                   	END
+0022  PORTC              0004  R1                 0005  R2                 
+0006  R3                 0007  R4                 00FE  SCAN_C0            
+00FD  SCAN_C1            00FB  SCAN_C2            8200  S_SCAN_2           
+
+

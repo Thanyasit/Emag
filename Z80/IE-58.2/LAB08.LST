@@ -1,0 +1,87 @@
+ 0000                           CPU     "Z80.TBL"
+ 0000                           HOF     "INT8"
+                        ; **************************************
+                        
+ 8000                           ORG  8000H
+ 8000                   START:
+ 8000 3E80                      LD A,80H       ;control word
+ 8002 D303                      OUT (03H),A
+ 8004                   LOOPM:
+ 8004 210082                    LD HL, TAB     ;HL point to TAB
+                        ;Display digit 1
+ 8007 7E                        LD A,(HL)
+ 8008 D301                      OUT (01H),A
+ 800A 3E00                      LD A,0
+ 800C D300                      OUT (00H),A
+ 800E CD0081                    CALL DELAY
+ 8011 3E00                      LD A,0
+ 8013 D301                      OUT (01H),A
+                        ;Display digit 2
+ 8015 23                        INC HL
+ 8016 7E                        LD A,(HL)
+ 8017 D301                      OUT (01H),A
+ 8019 3E01                      LD A,1
+ 801B D300                      OUT (00H),A
+ 801D CD0081                    CALL DELAY
+ 8020 3E00                      LD A,0
+ 8022 D301                      OUT (01H),A
+                        ;Display digit 3
+ 8024 23                        INC HL
+ 8025 7E                        LD A,(HL)
+ 8026 D301                      OUT (01H),A
+ 8028 3E02                      LD A,2
+ 802A D300                      OUT (00H),A
+ 802C CD0081                    CALL DELAY
+ 802F 3E00                      LD A,0
+ 8031 D301                      OUT (01H),A
+                        ;Display digit 4
+ 8033 23                        INC HL
+ 8034 7E                        LD A,(HL)
+ 8035 D301                      OUT (01H),A
+ 8037 3E03                      LD A,3
+ 8039 D300                      OUT (00H),A
+ 803B CD0081                    CALL DELAY
+ 803E 3E00                      LD A,0
+ 8040 D301                      OUT (01H),A
+                        ;Display digit 5
+ 8042 23                        INC HL
+ 8043 7E                        LD A,(HL)
+ 8044 D301                      OUT (01H),A
+ 8046 3E04                      LD A,4
+ 8048 D300                      OUT (00H),A
+ 804A CD0081                    CALL DELAY
+ 804D 3E00                      LD A,0
+ 804F D301                      OUT (01H),A
+                        ;Display digit 6
+ 8051 23                        INC HL
+ 8052 7E                        LD A,(HL)
+ 8053 D301                      OUT (01H),A
+ 8055 3E05                      LD A,5
+ 8057 D300                      OUT (00H),A
+ 8059 CD0081                    CALL DELAY
+ 805C 3E00                      LD A,0
+ 805E D301                      OUT (01H),A
+                        
+ 8060 18A2                      JR LOOPM
+                        
+                        ;***************************************
+ 8100                           ORG 8100H
+ 8100                   DELAY:
+ 8100 C5                        PUSH BC
+ 8101 019900                    LD BC,153
+ 8104                   LOOPD:
+ 8104 0B                        DEC BC
+ 8105 78                        LD A,B
+ 8106 B1                        OR C
+ 8107 20FB                      JR NZ,LOOPD
+ 8109 C1                        POP BC
+ 810A C9                        RET
+                        ;**************************************
+ 8200                           ORG 8200H
+ 8200 3F065B4F666D7D077FTAB: DFB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH
+                        ;*************************************
+ 820A                   END 0000                   	END
+8100  DELAY              820A  END                8104  LOOPD              
+8004  LOOPM              8000  START              8200  TAB                
+
+

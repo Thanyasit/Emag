@@ -1,0 +1,48 @@
+  ORG 8200H
+S_SCAN_2:
+        LD      A, SCAN_C0
+        OUT     (PORTC), A
+
+        IN      A,(PORTC)
+
+        BIT     R1, A
+        JR      Z, S_SCAN_2
+        BIT     R2, A
+        JR      Z, S_SCAN_2
+        BIT     R3, A
+        JR      Z, S_SCAN_2
+        BIT     R4, A
+        JR      Z, S_SCAN_2
+
+        LD      A, SCAN_C1
+        OUT     (PORTC), A
+
+        IN      A,(PORTC)
+
+        BIT     R1, A
+        JR      Z, S_SCAN_2
+        BIT     R2, A
+        JR      Z, S_SCAN_2
+        BIT     R3, A
+        JR      Z, S_SCAN_2
+        BIT     R4, A
+        JR      Z, S_SCAN_2
+
+
+        LD      A, SCAN_C2
+        OUT     (PORTC), A
+
+        IN      A,(PORTC)
+
+        BIT     R1, A
+        JR      Z, S_SCAN_2
+        BIT     R2, A
+        JR      Z, S_SCAN_2
+        BIT     R3, A
+        JR      Z, S_SCAN_2
+        BIT     R4, A
+        JR      Z, S_SCAN_2
+
+
+
+        RET
