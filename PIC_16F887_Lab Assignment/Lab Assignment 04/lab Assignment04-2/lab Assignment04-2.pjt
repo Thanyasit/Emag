@@ -1,0 +1,27 @@
+[PROJECT]
+Target=D:\Work T.Pongsak\Microcontroller\Work\Lab Assignment\Lab Assignment 04\lab Assignment04-2\lab Assignment04-2.hex
+Development_Mode=
+Processor_Text=PIC16F887
+ToolSuite=CCS
+Processor=0x887F
+[D:\Work T.Pongsak\Microcontroller\Work\Lab Assignment\Lab Assignment 04\lab Assignment04-2\lab Assignment04-2]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=D:\Work T.Pongsak\Microcontroller\Work\Lab Assignment\Lab Assignment 04\lab Assignment04-2\lab Assignment04-2.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=D:\Work T.Pongsak\Microcontroller\Work\Lab Assignment\Lab Assignment 04\lab Assignment04-2\lab Assignment04-2
+[Opened Files]
+1=D:\Work T.Pongsak\Microcontroller\Work\Lab Assignment\Lab Assignment 04\lab Assignment04-2\lab Assignment04-2.c
+2=D:\Work T.Pongsak\Microcontroller\Work\Lab Assignment\Lab Assignment 04\lab Assignment04-2\lab Assignment04-2.h
+3=C:\Program Files (x86)\PICC\devices\16F887.h
+4=C:\Program Files (x86)\PICC\drivers\lcd.c
+5=

@@ -1,0 +1,360 @@
+CCS PCM C Compiler, Version 4.049, 25917               10-Ê.¤.-16 14:03
+
+               Filename: Lab Assignment 01.lst
+
+               ROM used: 241 words (3%)
+                         Largest free fragment is 2048
+               RAM used: 12 (3%) at main() level
+                         23 (6%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   062
+0003:  NOP
+.................... #include "D:\Work T.Pongsak\Microcontroller\Work\Lab Assignment\Lab Assignment 01\Lab Assignment 01.h" 
+.................... #include <16F887.h> 
+.................... //////// Standard Header file for the PIC16F887 device //////////////// 
+.................... #device PIC16F887 
+.................... #list 
+....................  
+.................... #device adc=8 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES HS                    	//High speed Osc (> 4mhz) 
+.................... #FUSES NOPUT                 	//No Power Up Timer 
+.................... #FUSES NOMCLR                	//Master Clear pin used for I/O 
+.................... #FUSES NOPROTECT             	//Code not protected from reading 
+.................... #FUSES NOCPD                 	//No EE protection 
+.................... #FUSES NOBROWNOUT            	//No brownout reset 
+.................... #FUSES NOIESO                	//Internal External Switch Over mode disabled 
+.................... #FUSES NOFCMEN               	//Fail-safe clock monitor disabled 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NODEBUG               	//No Debug mode for ICD 
+.................... #FUSES NOWRT                 	//Program memory not write protected 
+.................... #FUSES BORV40                	//Brownout reset at 4.0V 
+....................  
+.................... #use delay(clock=20000000) 
+....................  
+....................  
+.................... #use delay (clock=20M) 
+*
+0044:  MOVLW  30
+0045:  MOVWF  04
+0046:  BCF    03.7
+0047:  MOVF   00,W
+0048:  BTFSC  03.2
+0049:  GOTO   057
+004A:  MOVLW  06
+004B:  MOVWF  78
+004C:  CLRF   77
+004D:  DECFSZ 77,F
+004E:  GOTO   04D
+004F:  DECFSZ 78,F
+0050:  GOTO   04C
+0051:  MOVLW  7B
+0052:  MOVWF  77
+0053:  DECFSZ 77,F
+0054:  GOTO   053
+0055:  DECFSZ 00,F
+0056:  GOTO   04A
+.................... #define ISw PIN_D6 
+.................... #define DSw PIN_D7 
+.................... int LED(void); 
+.................... int count=0,count1=0,seg1,i,f=0; 
+*
+0075:  BCF    03.6
+0076:  CLRF   20
+0077:  CLRF   21
+0078:  CLRF   24
+.................... void main() 
+.................... { 
+*
+0062:  CLRF   04
+0063:  BCF    03.7
+0064:  MOVLW  1F
+0065:  ANDWF  03,F
+0066:  BSF    03.5
+0067:  BSF    03.6
+0068:  MOVF   09,W
+0069:  ANDLW  C0
+006A:  MOVWF  09
+006B:  BCF    03.6
+006C:  BCF    1F.4
+006D:  BCF    1F.5
+006E:  MOVLW  00
+006F:  BSF    03.6
+0070:  MOVWF  08
+0071:  BCF    03.5
+0072:  CLRF   07
+0073:  CLRF   08
+0074:  CLRF   09
+....................    setup_adc_ports(NO_ANALOGS|VSS_VDD); 
+*
+007B:  BSF    03.5
+007C:  BSF    03.6
+007D:  MOVF   09,W
+007E:  ANDLW  C0
+007F:  MOVWF  09
+0080:  BCF    03.6
+0081:  BCF    1F.4
+0082:  BCF    1F.5
+0083:  MOVLW  00
+0084:  BSF    03.6
+0085:  MOVWF  08
+....................    setup_adc(ADC_OFF); 
+0086:  BCF    03.5
+0087:  BCF    03.6
+0088:  BCF    1F.0
+....................    setup_spi(SPI_SS_DISABLED); 
+*
+0079:  MOVLW  FF
+007A:  MOVWF  25
+*
+0089:  BCF    14.5
+008A:  BCF    25.5
+008B:  MOVF   25,W
+008C:  BSF    03.5
+008D:  MOVWF  07
+008E:  BCF    03.5
+008F:  BSF    25.4
+0090:  MOVF   25,W
+0091:  BSF    03.5
+0092:  MOVWF  07
+0093:  BCF    03.5
+0094:  BCF    25.3
+0095:  MOVF   25,W
+0096:  BSF    03.5
+0097:  MOVWF  07
+0098:  MOVLW  01
+0099:  BCF    03.5
+009A:  MOVWF  14
+009B:  MOVLW  00
+009C:  BSF    03.5
+009D:  MOVWF  14
+....................    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1); 
+009E:  MOVF   01,W
+009F:  ANDLW  C7
+00A0:  IORLW  08
+00A1:  MOVWF  01
+....................    setup_timer_1(T1_DISABLED); 
+00A2:  BCF    03.5
+00A3:  CLRF   10
+....................    setup_timer_2(T2_DISABLED,0,1); 
+00A4:  MOVLW  00
+00A5:  MOVWF  78
+00A6:  MOVWF  12
+00A7:  MOVLW  00
+00A8:  BSF    03.5
+00A9:  MOVWF  12
+....................    setup_comparator(NC_NC_NC_NC);// This device COMP currently not supported by the PICWizard 
+00AA:  BCF    03.5
+00AB:  BSF    03.6
+00AC:  CLRF   07
+00AD:  CLRF   08
+00AE:  CLRF   09
+.................... //Setup_Oscillator parameter not selected from Intr Oscillotar Config tab 
+....................  
+....................    // TODO: USER CODE!! 
+....................    set_tris_c(0x00); 
+00AF:  BSF    03.5
+00B0:  BCF    03.6
+00B1:  MOVWF  07
+00B2:  BCF    03.5
+00B3:  MOVWF  25
+....................    set_tris_d(0b11111100); 
+00B4:  MOVLW  FC
+00B5:  BSF    03.5
+00B6:  MOVWF  08
+....................    output_d(0x00); 
+00B7:  CLRF   08
+00B8:  BCF    03.5
+00B9:  CLRF   08
+....................    while(1){ 
+....................       if(!input(ISw)){ 
+00BA:  BSF    03.5
+00BB:  BSF    08.6
+00BC:  BCF    03.5
+00BD:  BTFSC  08.6
+00BE:  GOTO   0D3
+....................          count++; 
+00BF:  INCF   20,F
+....................          if(count==10){ 
+00C0:  MOVF   20,W
+00C1:  SUBLW  0A
+00C2:  BTFSS  03.2
+00C3:  GOTO   0CB
+....................             count=0; 
+00C4:  CLRF   20
+....................             count1++; 
+00C5:  INCF   21,F
+....................                if(count1==10){ 
+00C6:  MOVF   21,W
+00C7:  SUBLW  0A
+00C8:  BTFSS  03.2
+00C9:  GOTO   0CB
+....................                   count1=0; 
+00CA:  CLRF   21
+....................                } 
+....................          } 
+....................          LED(); 
+00CB:  CALL   004
+....................          while(!input(Isw)){ 
+00CC:  BSF    03.5
+00CD:  BSF    08.6
+00CE:  BCF    03.5
+00CF:  BTFSC  08.6
+00D0:  GOTO   0D3
+....................             LED(); 
+00D1:  CALL   004
+....................          } 
+00D2:  GOTO   0CC
+....................       } 
+....................       if(!input(DSw)){ 
+00D3:  BSF    03.5
+00D4:  BSF    08.7
+00D5:  BCF    03.5
+00D6:  BTFSC  08.7
+00D7:  GOTO   0EE
+....................          count--; 
+00D8:  DECF   20,F
+....................          if(count==-1){ 
+00D9:  MOVF   20,W
+00DA:  SUBLW  FF
+00DB:  BTFSS  03.2
+00DC:  GOTO   0E6
+....................             count=9; 
+00DD:  MOVLW  09
+00DE:  MOVWF  20
+....................             count1--; 
+00DF:  DECF   21,F
+....................                if(count1==-1){ 
+00E0:  MOVF   21,W
+00E1:  SUBLW  FF
+00E2:  BTFSS  03.2
+00E3:  GOTO   0E6
+....................                   count1=9; 
+00E4:  MOVLW  09
+00E5:  MOVWF  21
+....................                } 
+....................          } 
+....................          LED(); 
+00E6:  CALL   004
+....................          while(!input(Dsw)){ 
+00E7:  BSF    03.5
+00E8:  BSF    08.7
+00E9:  BCF    03.5
+00EA:  BTFSC  08.7
+00EB:  GOTO   0EE
+....................             LED(); 
+00EC:  CALL   004
+....................          } 
+00ED:  GOTO   0E7
+....................       } 
+....................       LED(); 
+00EE:  CALL   004
+....................    } 
+00EF:  GOTO   0BA
+.................... } 
+.................... int LED(){ 
+....................       char segment[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F}; 
+*
+0004:  MOVLW  3F
+0005:  MOVWF  26
+0006:  MOVLW  06
+0007:  MOVWF  27
+0008:  MOVLW  5B
+0009:  MOVWF  28
+000A:  MOVLW  4F
+000B:  MOVWF  29
+000C:  MOVLW  66
+000D:  MOVWF  2A
+000E:  MOVLW  6D
+000F:  MOVWF  2B
+0010:  MOVLW  7D
+0011:  MOVWF  2C
+0012:  MOVLW  07
+0013:  MOVWF  2D
+0014:  MOVLW  7F
+0015:  MOVWF  2E
+0016:  MOVLW  6F
+0017:  MOVWF  2F
+*
+00F0:  SLEEP
+....................       seg1=0b11111101; 
+*
+0018:  MOVLW  FD
+0019:  MOVWF  22
+....................       for(i=0;i<2;i++){ 
+001A:  CLRF   23
+001B:  MOVF   23,W
+001C:  SUBLW  01
+001D:  BTFSS  03.0
+001E:  GOTO   05C
+....................          output_d(seg1); 
+001F:  BSF    03.5
+0020:  CLRF   08
+0021:  BCF    03.5
+0022:  MOVF   22,W
+0023:  MOVWF  08
+....................          if(f==0){ 
+0024:  MOVF   24,F
+0025:  BTFSS  03.2
+0026:  GOTO   035
+....................             output_c(segment[count]); 
+0027:  MOVLW  26
+0028:  ADDWF  20,W
+0029:  MOVWF  04
+002A:  BCF    03.7
+002B:  MOVF   00,W
+002C:  MOVWF  30
+002D:  MOVLW  00
+002E:  MOVWF  25
+002F:  BSF    03.5
+0030:  CLRF   07
+0031:  BCF    03.5
+0032:  MOVF   30,W
+0033:  MOVWF  07
+....................          }else{ 
+0034:  GOTO   042
+....................             output_c(segment[count1]); 
+0035:  MOVLW  26
+0036:  ADDWF  21,W
+0037:  MOVWF  04
+0038:  BCF    03.7
+0039:  MOVF   00,W
+003A:  MOVWF  30
+003B:  MOVLW  00
+003C:  MOVWF  25
+003D:  BSF    03.5
+003E:  CLRF   07
+003F:  BCF    03.5
+0040:  MOVF   30,W
+0041:  MOVWF  07
+....................          } 
+....................          delay_ms(1); 
+0042:  MOVLW  01
+0043:  MOVWF  30
+....................          seg1 = seg1>>1; 
+*
+0057:  BCF    03.0
+0058:  RRF    22,F
+....................          f=~f; 
+0059:  COMF   24,F
+....................       } 
+005A:  INCF   23,F
+005B:  GOTO   01B
+....................       output_d(0b11111111); 
+005C:  BSF    03.5
+005D:  CLRF   08
+005E:  MOVLW  FF
+005F:  BCF    03.5
+0060:  MOVWF  08
+.................... } 
+0061:  RETLW  00
+....................  
+
+Configuration Fuses:
+   Word  1: 20D2   HS NOWDT NOPUT NOMCLR NOPROTECT NOCPD NOBROWNOUT NOIESO NOFCMEN NOLVP NODEBUG
+   Word  2: 3FFF   NOWRT BORV40

@@ -1,0 +1,5 @@
+>>> Warning 203 "Lab Assignment 05.c" Line 95(1,1): Condition always TRUE
+>>> Warning 208 "Lab Assignment 05.c" Line 6(5,8): Function not void and does not return a value  lcd
+>>> Warning 208 "Lab Assignment 05.c" Line 7(5,9): Function not void and does not return a value  LCD1
+      Memory usage:   ROM=17%      RAM=12% - 15%
+      0 Errors,  3 Warnings.

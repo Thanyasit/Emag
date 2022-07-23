@@ -1,0 +1,7 @@
+>>> Warning 203 "Lab Assignment 06.c" Line 28(1,1): Condition always TRUE
+>>> Warning 201 "Lab Assignment 06.c" Line 46(1,1): Assignment inside relational expression
+>>> Warning 201 "Lab Assignment 06.c" Line 48(1,1): Assignment inside relational expression
+>>> Warning 202 "Lab Assignment 06.c" Line 7(10,16): Variable never used:   adcVal
+>>> Warning 202 "Lab Assignment 06.c" Line 8(8,15): Variable never used:   full1ph
+      Memory usage:   ROM=6%      RAM=10% - 13%
+      0 Errors,  5 Warnings.

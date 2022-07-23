@@ -1,0 +1,12 @@
+ÀÄLab Assignment 02
+   ÃÄMAIN  0/139  Ram=0
+   ³  ÃÄ??0??
+   ³  ÃÄLED  0/89  Ram=11
+   ³  ³  ÀÄ@delay_ms2  (Inline)  Ram=1
+   ³  ÃÄLED  0/89  Ram=11
+   ³  ³  ÀÄ@delay_ms2  (Inline)  Ram=1
+   ³  ÃÄLED  0/89  Ram=11
+   ³  ³  ÀÄ@delay_ms2  (Inline)  Ram=1
+   ³  ÀÄLED  0/89  Ram=11
+   ³     ÀÄ@delay_ms2  (Inline)  Ram=1
+   ÀÄtime0_isr  0/7  Ram=0

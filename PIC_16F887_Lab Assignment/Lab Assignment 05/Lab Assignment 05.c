@@ -1,0 +1,304 @@
+#include "D:\Work T.Pongsak\Microcontroller\Work\Lab Assignment\Lab Assignment 05\Lab Assignment 05.h"
+#use delay (clock=20M)
+int time10,hh=0,hh1=0,mm=0,mm1=0,ss=0,ss1=0,m1=0,m2=0,s1=0,s2=0,T10=0,a=0,i=0;
+char num[]={'0','1','2','3','4','5','6','7','8','9',};
+#include <lcd.c>
+int LCD(void);
+int LCD1(void);
+#int_timer0
+void time0_isr(){
+   time10++;
+   if(i==1){
+      if(time10==100){
+         time10=0;
+         ss++;
+         if(ss==10){
+            ss=0;
+            ss1++;
+            if(ss1==6){
+               ss1=0;
+               mm++;
+               if(mm==10){
+                  mm=0;
+                  mm1++;
+                  if(mm1==6){
+                     mm1=0;
+                     hh++;
+                     if(hh==10){
+                        hh=0;
+                        hh1++;
+                     }
+                     if(hh1==2){
+                        if(hh==4){
+                           hh1=0;
+                           hh=0;
+                        }
+                     }    
+                  }
+               }                   
+            }
+         }
+      }
+   }
+   if(a==1){
+      T10++;
+      if(T10==100){
+      T10=0;
+      s1--;
+         if(s1==-1){
+            s1=9;
+            s2--;
+            if(s2==-1){
+               s2=5;
+               m1--;
+               if(m1==-1){
+                  m1=9;
+                  m2--;
+               }
+            }
+         }
+      }
+   }
+   if(s1==0){
+      if(s2==0){
+         if(m1==0){
+            if(m2==0){
+               a=0;
+            }
+         }
+      }
+   }
+   set_timer0(61);
+}
+void main()
+{
+   int b=-1,s=0,f=0,z=0,y=0;
+   setup_adc_ports(NO_ANALOGS|VSS_VDD);
+   setup_adc(ADC_OFF);
+   setup_spi(SPI_SS_DISABLED);
+   setup_timer_0(RTCC_DIV_256);
+   setup_timer_1(T1_DISABLED);
+   setup_timer_2(T2_DISABLED,0,1);
+   setup_comparator(NC_NC_NC_NC);// This device COMP currently not supported by the PICWizard
+//Setup_Oscillator parameter not selected from Intr Oscillotar Config tab
+
+   // TODO: USER CODE!!
+   enable_interrupts(GLOBAL);
+   DISABLE_INTERRUPTS(INT_TIMER0);
+   set_tris_c(0xff);
+   set_tris_d(0x00);
+   lcd_init();
+   lcd_gotoxy(3,1);
+   printf(lcd_putc,"ASSIGNMENT05");
+   lcd_gotoxy(4,2);
+   printf(lcd_putc,"SELECTMODE");
+   while(1){
+      if(!input(PIN_c0)){
+         b=!b;
+         delay_ms(30);
+         while(!input(PIN_c0));
+      }
+      if(b==0){
+         if(f==0){
+            lcd_putc('\f');
+            lcd_gotoxy(6,1);
+            printf(lcd_putc,"CLOCK");
+            lcd_gotoxy(5,2);
+            printf(lcd_putc,"00:00:00");
+            f=1;
+         }
+         z=1;
+         if(s==0){
+            lcd_gotoxy(1,2);
+            printf(lcd_putc,"SET:");
+            if(!input(PIN_c4)){
+               s=1;
+               delay_ms(30);
+               while(!input(PIN_c4));
+            }
+            if(!input(PIN_c1)){
+                     hh++;
+                     if(hh==10){
+                     hh=0;
+                     hh1++;
+                     }
+                     if(hh1==2){
+                        if(hh==4){
+                           hh1=0;
+                           hh=0;
+                        }
+                     }
+                     lcd_gotoxy(5,2);
+                     lcd_putc(num[hh1]);
+                     lcd_gotoxy(6,2);
+                     lcd_putc(num[hh]);
+                     delay_ms(30);
+                     while(!input(PIN_c1));
+                  }
+            if(!input(PIN_c2)){
+                     mm++;
+                     if(mm==10){
+                        mm=0;
+                        mm1++;
+                        if(mm1==6){
+                           mm1=0;
+                        }
+                     }
+                     lcd_gotoxy(8,2);
+                     lcd_putc(num[mm1]);
+                     lcd_gotoxy(9,2);
+                     lcd_putc(num[mm]);
+                     delay_ms(30);
+                     while(!input(PIN_c2));
+                  }
+            if(!input(PIN_c3)){
+                     ss++;
+                     if(ss==10){
+                        ss=0;
+                        ss1++;
+                        if(ss1==6){
+                           ss1=0;
+                        }
+                     }
+                     lcd_gotoxy(11,2);
+                     lcd_putc(num[ss1]);
+                     lcd_gotoxy(12,2);
+                     lcd_putc(num[ss]);
+                     delay_ms(30);
+                     while(!input(PIN_c3));
+                  }
+         }else if(s==1){
+            lcd_gotoxy(1,2);
+            printf(lcd_putc,"    ");
+            if(!input(PIN_c4)){
+               s=0;
+               delay_ms(30);
+               while(!input(PIN_c4));
+            }
+            if(!input(PIN_c1)){
+            enable_interrupts(INT_TIMER0);
+            i=1;
+            }else if(!input(PIN_c2)){
+               ss1=0;
+               ss=0;
+               mm=0;
+               mm1=0;
+               hh=0;
+               hh1=0;
+               time10=0;
+            }
+         }
+      }
+      else if(b==1){
+         if(f==1){
+            lcd_putc('\f');
+            lcd_gotoxy(6,1);
+            printf(lcd_putc,"TIMER");
+            lcd_gotoxy(6,2);
+            printf(lcd_putc,"00:00");
+            f=0;
+         }
+         z=2;
+         if(y==0){
+            lcd_gotoxy(2,2);
+            printf(lcd_putc,"SET:");
+            if(!input(PIN_c4)){
+               delay_ms(30);
+               y=1;
+               while(!input(PIN_c4));  
+            }else if(!input(PIN_c1)){
+               m1++;
+               if(m1==10){
+                  m1=0;
+                  m2++;
+                  if(m2==6){
+                     m2=0;
+                  }
+               }
+               lcd_gotoxy(7,2);
+               lcd_putc(num[m1]);
+               lcd_gotoxy(6,2);
+               lcd_putc(num[m2]);
+               delay_ms(30);
+               while(!input(PIN_c1));
+            }else if(!input(PIN_c2)){
+               s1++;
+               if(s1==10){
+                  s1=0;
+                  s2++;
+                  if(s2==6){
+                     s2=0;
+                  }
+               }
+               lcd_gotoxy(9,2);
+               lcd_putc(num[s2]);
+               lcd_gotoxy(10,2);
+               lcd_putc(num[s1]);;
+               delay_ms(30);
+               while(!input(PIN_c2));
+            }else if(!input(PIN_c3)){
+               s2=0;
+               s1=0;
+               m1=0;
+               m2=0;
+            }
+            
+         }else if(y==1){
+            lcd_gotoxy(2,2);
+            printf(lcd_putc,"    ");
+            if(!input(PIN_C4)){
+               y=0;
+               delay_ms(30);
+               while(!input(PIN_c4));
+            }else if(!input(PIN_c1)){
+               enable_interrupts(INT_TIMER0);
+               if(s1!=0){
+                  a=1;
+               }else if(s2!=0){
+                  a=1;
+               }else if(m1!=0){
+                  a=1;
+               }else if(m2!=0){
+                  a=1;
+               }
+            }else if(!input(PIN_c2)){
+               a=0;
+            }else if(!input(PIN_c3)){
+               s2=0;
+               s1=0;
+               m1=0;
+               m2=0;
+            }
+         }
+      }
+      if(z==1){
+         LCD();
+      }else if(z==2){
+         LCD1();
+      }
+   }
+}
+int LCD(){
+   lcd_gotoxy(11,2);
+   lcd_putc(num[ss1]);
+   lcd_gotoxy(12,2);
+   lcd_putc(num[ss]);
+   lcd_gotoxy(8,2);
+   lcd_putc(num[mm1]);
+   lcd_gotoxy(9,2);
+   lcd_putc(num[mm]);
+   lcd_gotoxy(5,2);
+   lcd_putc(num[hh1]);
+   lcd_gotoxy(6,2);
+   lcd_putc(num[hh]);
+}
+int LCD1(){
+   lcd_gotoxy(9,2);
+   lcd_putc(num[s2]);
+   lcd_gotoxy(10,2);
+   lcd_putc(num[s1]);
+   lcd_gotoxy(7,2);
+   lcd_putc(num[m1]);
+   lcd_gotoxy(6,2);
+   lcd_putc(num[m2]);
+}

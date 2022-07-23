@@ -1,0 +1,94 @@
+004     @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+008     lcd
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01B-01C CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020-021 strtok.save
+022-025 _Randseed
+026     @TRIS_C
+027-02A MAIN.adcVal
+02B-02E MAIN.full1ph
+02F     MAIN.i
+030     MAIN.A
+031     MAIN.B
+032-035 MAIN.full2ph
+036-03D MAIN.halfstep
+03E     lcd_init.i
+03E     MAIN.@SCRATCH
+03F     lcd_putc.c
+03F     lcd_init.@SCRATCH
+040     lcd_gotoxy.x
+040     @delay_ms1.P1
+041     lcd_gotoxy.y
+042     lcd_gotoxy.address
+043     lcd_gotoxy.@SCRATCH
+044     lcd_send_byte.address
+045     lcd_send_byte.n
+046     lcd_read_byte.low
+046     lcd_send_byte.@SCRATCH
+047     lcd_read_byte.high
+047     lcd_send_nibble.n
+048     lcd_read_byte.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+001F  @delay_ms1
+0004  LCD_INIT_STRING
+0043  lcd_read_byte
+0033  lcd_send_nibble
+0042  lcd_send_byte
+007E  lcd_init
+00AA  lcd_gotoxy
+00BC  lcd_putc
+00E3  MAIN
+000C  @const366
+00E3  @cinit
+0136  StrtoulGO
+0136  StrtolGO
+
+Project Directory:
+    D:\Work T.Pongsak\Microcontroller\Work\Lab Assignment\Lab Assignment 06\
+
+Project Files:
+    Lab Assignment 06.c
+    Lab Assignment 06.h
+    C:\Program Files (x86)\PICC\devices\16F887.h
+    C:\Program Files (x86)\PICC\drivers\lcd.c
+    C:\Program Files (x86)\PICC\drivers\stdlib.h
+    C:\Program Files (x86)\PICC\drivers\stddef.h
+    C:\Program Files (x86)\PICC\drivers\string.h
+    C:\Program Files (x86)\PICC\drivers\ctype.h
+
+Units:
+    Lab Assignment 06.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      Lab Assignment 06.err
+    Ext Symbols: Lab Assignment 06.esym
+    INHX8:       Lab Assignment 06.hex
+    Symbols:     Lab Assignment 06.sym
+    List:        Lab Assignment 06.lst
+    Debug/COFF:  Lab Assignment 06.cof
+    Project:     Lab Assignment 06.PJT
+    Call Tree:   Lab Assignment 06.tre
+    Statistics:  Lab Assignment 06.sta

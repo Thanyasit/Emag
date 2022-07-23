@@ -1,0 +1,5 @@
+>>> Warning 203 "Lab Assignment 03.c" Line 36(1,1): Condition always TRUE
+>>> Warning 208 "Lab Assignment 03.c" Line 6(5,17): Function not void and does not return a value  matrixSwStop
+>>> Warning 202 "Lab Assignment 03.c" Line 4(11,12): Variable never used:   x
+      Memory usage:   ROM=16%      RAM=18% - 20%
+      0 Errors,  3 Warnings.

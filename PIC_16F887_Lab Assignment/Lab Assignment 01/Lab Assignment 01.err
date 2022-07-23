@@ -1,0 +1,4 @@
+>>> Warning 203 "Lab Assignment 01.c" Line 22(1,1): Condition always TRUE
+>>> Warning 208 "Lab Assignment 01.c" Line 5(5,8): Function not void and does not return a value  LED
+      Memory usage:   ROM=3%      RAM=3% - 6%
+      0 Errors,  2 Warnings.
