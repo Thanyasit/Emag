@@ -1,0 +1,30 @@
+[PROJECT]
+Target=D:\Work T.Pongsak\Microcontroller\Work\Project Jinny\Jinny.hex
+Development_Mode=
+Processor_Text=PIC16F887
+ToolSuite=CCS
+Processor=0x887F
+[D:\Work T.Pongsak\Microcontroller\Work\Project Jinny\Jinny]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=D:\Work T.Pongsak\Microcontroller\Work\Project Jinny\Jinny.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=D:\Work T.Pongsak\Microcontroller\Work\Project Jinny\Jinny
+[Opened Files]
+1=D:\Work T.Pongsak\Microcontroller\Work\Project Jinny\Jinny.c
+2=D:\Work T.Pongsak\Microcontroller\Work\Project Jinny\Jinny.h
+3=C:\Program Files (x86)\PICC\devices\16F887.h
+4=C:\Program Files (x86)\PICC\drivers\stdlib.h
+5=C:\Program Files (x86)\PICC\drivers\stddef.h
+6=C:\Program Files (x86)\PICC\drivers\string.h
+7=C:\Program Files (x86)\PICC\drivers\ctype.h
+8=

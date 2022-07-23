@@ -1,0 +1,25 @@
+[PROJECT]
+Target=D:\2557-class\CCS-project\I2C-Projects\slave2-device\slave2.hex
+Development_Mode=
+Processor_Text=PIC16F877A
+ToolSuite=CCS
+Processor=0x877A
+[D:\2557-class\CCS-project\I2C-Projects\slave2-device\slave2]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=D:\2557-class\CCS-project\I2C-Projects\slave2-device\slave2.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=D:\2557-class\CCS-project\I2C-Projects\slave2-device\slave2
+[Opened Files]
+1=..\slave2-device\slave2.c
+2=D:\2557-class\CCS-project\I2C-Projects\slave2-device\slave2.h
+3=

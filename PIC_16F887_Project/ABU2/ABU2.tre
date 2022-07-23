@@ -1,0 +1,26 @@
+ÀÄABU2
+   ÃÄMAIN  0/216  Ram=1
+   ³  ÃÄ??0??
+   ³  ÃÄ@delay_ms2  0/20  Ram=1
+   ³  ÃÄ@delay_ms2  0/20  Ram=1
+   ³  ÃÄ@delay_ms2  0/20  Ram=1
+   ³  ÃÄUp  0/8  Ram=0
+   ³  ÃÄRight  0/8  Ram=0
+   ³  ÃÄDown  0/8  Ram=0
+   ³  ÃÄLeft  0/8  Ram=0
+   ³  ÃÄRollRight  0/11  Ram=0
+   ³  ÃÄRollLeft  0/11  Ram=0
+   ³  ÃÄShoot  0/8  Ram=0
+   ³  ÃÄRollMag  0/4  Ram=0
+   ³  ÃÄUpspeed  0/30  Ram=1
+   ³  ÃÄDownspped  0/34  Ram=1
+   ³  ÃÄLiftUp  0/5  Ram=0
+   ³  ÃÄLiftDown  0/5  Ram=0
+   ³  ÃÄAngleUp  0/5  Ram=0
+   ³  ÃÄAngleDown  0/5  Ram=0
+   ³  ÃÄStop  0/11  Ram=0
+   ³  ÀÄdelay  0/25  Ram=0
+   ³     ÀÄ@delay_ms2  0/20  Ram=1
+   ÃÄtimer0_isr  0/146  Ram=0
+   ÃÄtimer1_isr  0/4  Ram=0
+   ÀÄrs232_isr  0/8  Ram=0

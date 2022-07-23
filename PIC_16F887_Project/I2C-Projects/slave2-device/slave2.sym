@@ -1,0 +1,121 @@
+004     @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+008     lcd
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     @INTERRUPT_AREA
+029     @TRIS_C
+02A     address
+02B-03A buffer
+03B.0   rec
+03B.1   isMe
+03C     @I2C_STATE
+03D     lcd_init.i
+03D     MAIN.@SCRATCH
+03E     lcd_init.@SCRATCH
+048     ssp_interupt.incoming
+049     ssp_interupt.state
+04A     ssp_interupt.@SCRATCH
+04B     @I2C_WRITE_1.P1
+04B     @PRINTF_D_82.P2
+04B     ssp_interupt.@SCRATCH
+04C     @PRINTF_D_82.P1
+04D     @PRINTF_D_82.@SCRATCH
+04E     @PRINTF_D_82.@SCRATCH
+04F     @PRINTF_D_82.@SCRATCH
+050     @PRINTF_D_82.@SCRATCH
+051     @DIV88.P1
+051     lcd_putc.c
+052     @DIV88.P1
+052     @delay_ms1.P2
+052     lcd_gotoxy.x
+053     lcd_gotoxy.y
+053     @DIV88.@SCRATCH
+054     lcd_gotoxy.address
+055     lcd_gotoxy.@SCRATCH
+056     lcd_send_byte.address
+057     lcd_send_byte.n
+058     lcd_read_byte.low
+058     lcd_send_byte.@SCRATCH
+059     lcd_read_byte.high
+059     lcd_send_nibble.n
+05A     lcd_read_byte.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+09C.6   C1OUT
+09C.7   C2OUT
+0FF     @INTERRUPT_AREA
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+00B9  @delay_ms1
+01AF  @I2C_WRITE_1
+0035  LCD_INIT_STRING
+006C  lcd_read_byte
+008F  lcd_send_nibble
+009E  lcd_send_byte
+01E5  lcd_init
+00CD  lcd_gotoxy
+00DF  lcd_putc
+0104  ssp_interupt
+0057  @DIV88
+013E  @PRINTF_D_82
+01BD  MAIN
+003D  @const105
+0048  @const106
+01BD  @cinit
+
+Project Directory:
+    D:\2557-class\CCS-project\I2C-Projects\slave2-device\
+
+Project Files:
+    slave2.c
+    slave2.h
+    C:\Program Files (x86)\PICC\devices\16F877A.h
+    C:\Program Files (x86)\PICC\drivers\lcd.c
+
+Units:
+    slave2.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      slave2.err
+    Ext Symbols: slave2.esym
+    INHX8:       slave2.hex
+    Symbols:     slave2.sym
+    List:        slave2.lst
+    Debug/COFF:  slave2.cof
+    Project:     slave2.PJT
+    Call Tree:   slave2.tre
+    Statistics:  slave2.sta

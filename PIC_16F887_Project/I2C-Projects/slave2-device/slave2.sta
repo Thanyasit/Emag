@@ -1,0 +1,62 @@
+
+ROM used: 641 (8%)
+          641 (8%) including unused fragments
+
+          1 Average locations per line
+          6 Average locations per statement
+
+RAM used: 36 (10%) at main() level
+          65 (18%) worst case
+
+Stack used: 9 worst case (out of 3 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   72    37  37  slave2.c
+   18     0   0  slave2.h
+  312     0   0  C:\Program Files (x86)\PICC\devices\16F877A.h
+  178    63  63  C:\Program Files (x86)\PICC\drivers\lcd.c
+----- -----
+  580   100 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20   3   1             @delay_ms1
+ Inline        1             @I2C_WRITE_1
+0      8   1   0             @const62
+0     35   5   3   463  4.3  lcd_read_byte
+0     15   2   1   134  2.2  lcd_send_nibble
+0     27   4   3   317  4.3  lcd_send_byte
+ Inline        2   422  4.7  lcd_init
+0     18   3   4   186  5.5  lcd_gotoxy
+0     37   6   1   272  4.1  lcd_putc
+0    185  29   4   589  4.7  ssp_interupt
+0     21   3   3             @DIV88
+ Inline        6             @PRINTF_D_82
+0    196  31   1   370  2.7  MAIN
+0     11   2   0   391  2.8  @const105
+0     15   2   0   531  6.1  @const106
+
+Program metrics:
+    Functions               10
+    Statements              100
+    Comments                144
+    Volume (V)              5878
+    Difficilty (D)          40.6
+    Effort to implement (E) 238500
+    Time to implement (T)   3 hours, 41 minutes
+    Est Delivered Bugs (B)  1
+    Cyclomatic Complexity   15
+    Maintainability (MI)    81
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-00034    49  0  
+00035-007FF   588  1407  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

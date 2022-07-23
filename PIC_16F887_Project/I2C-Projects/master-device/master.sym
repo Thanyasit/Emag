@@ -1,0 +1,99 @@
+004     @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+008     lcd
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B-01C CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     @TRIS_C
+021     MAIN.incomming
+022     @I2C_READ_1.P1
+022     lcd_init.i
+022     @PRINTF_D_84.P1
+022     @I2C_WRITE_1.P2
+022     MAIN.@SCRATCH
+023     @PRINTF_D_84.P1
+023     @I2C_READ_1.@SCRATCH
+023     lcd_init.@SCRATCH
+024     @I2C_READ_1.@SCRATCH
+024     @PRINTF_D_84.@SCRATCH
+025     @PRINTF_D_84.@SCRATCH
+026     @PRINTF_D_84.@SCRATCH
+027     @PRINTF_D_84.@SCRATCH
+028     @DIV88.P1
+028     lcd_putc.c
+029     @delay_ms1.P1
+029     lcd_gotoxy.x
+029     @DIV88.P1
+02A     lcd_gotoxy.y
+02A     @DIV88.@SCRATCH
+02B     lcd_gotoxy.address
+02C     lcd_gotoxy.@SCRATCH
+02D     lcd_send_byte.address
+02E     lcd_send_byte.n
+02F     lcd_read_byte.low
+02F     lcd_send_byte.@SCRATCH
+030     lcd_read_byte.high
+030     lcd_send_nibble.n
+031     lcd_read_byte.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+002E  @delay_ms1
+014C  @I2C_READ_1
+00F0  @I2C_WRITE_1
+0004  LCD_INIT_STRING
+0052  lcd_read_byte
+0042  lcd_send_nibble
+0051  lcd_send_byte
+008D  lcd_init
+00B9  lcd_gotoxy
+00CB  lcd_putc
+021A  MAIN
+000C  @const93
+01A0  @DIV88
+01B5  @PRINTF_D_84
+001D  @const102
+021A  @cinit
+
+Project Directory:
+    D:\2557-class\CCS-project\I2C-Projects\master-device\
+
+Project Files:
+    master.c
+    master.h
+    C:\Program Files (x86)\PICC\devices\16F877A.h
+    C:\Program Files (x86)\PICC\drivers\lcd.c
+
+Units:
+    master.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      master.err
+    Ext Symbols: master.esym
+    INHX8:       master.hex
+    Symbols:     master.sym
+    List:        master.lst
+    Debug/COFF:  master.cof
+    Project:     master.PJT
+    Call Tree:   master.tre
+    Statistics:  master.sta

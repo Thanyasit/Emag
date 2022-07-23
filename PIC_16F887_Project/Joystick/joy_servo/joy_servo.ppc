@@ -1,0 +1,32 @@
+[DeviceName]
+Value=P16F887
+[DeviceClock]
+Value=8
+[MainUnit]
+Value=
+[DeviceFlags]
+Count=3
+Value0=_HS_OSC = $3FFA
+Value1=_WDT_OFF = $3FF7
+Value2=_LVP_OFF = $2FFF
+[BuildType]
+bType=0
+[ProjectFiles]
+Count=1
+Value0=joy_servo.c
+[HeaderFiles]
+Count=0
+[ObjLibFiles]
+Count=0
+[PLDFiles]
+Count=0
+[EEPROMinfo]
+isused=0
+[SearchPath]
+Count=4
+Value0=C:\Program Files\Mikroelektronika\mikroC\Defs\
+Value1=C:\Program Files\Mikroelektronika\mikroC\Uses\p16\
+Value2=C:\Documents and Settings\witsarut\Desktop\robot_code\joy_servo\
+Value3=C:\Program Files\Mikroelektronika\mikroC\Examples\EasyPic5\p16f887\LED_blinking\
+[IncludePath]
+Count=0

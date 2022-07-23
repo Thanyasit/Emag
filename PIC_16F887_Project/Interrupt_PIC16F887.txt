@@ -1,0 +1,214 @@
+
+// ------------------------------------------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////
+//      		Interrupt Service Routine function prototype				   //
+/////////////////////////////////////////////////////////////////////////////////
+void  RTCC_isr(void);		// prototype
+void  RB_isr(void); 
+void  EXT_isr(void); 
+void  AD_isr(void); 
+void  TBE_isr(void); 
+void  RDA_isr(void); 
+void  TIMER1_isr(void); 
+void  TIMER2_isr(void); 
+void  CCP1_isr(void); 
+void  SSP_isr(void); 
+void  TIMER0_isr(void); 
+void  EEPROM_isr(void); 
+void  OSC_FAIL_isr(void); 
+void  LCD_isr(void); 
+void  LOWVOLT_isr(void); 
+void  COMP_isr(void); 
+void  COMP2_isr(void); 
+// ------------------------------------------------------------------------------------------------
+
+
+
+// ------------------------------------------------------------------------------------------------
+	disable_interrupts(GLOBAL);		// all interrupts OFF
+	//enable_interrupts(GLOBAL);		// all interrupts ON
+// ------------------------------------------------------------------------------------------------
+   enable_interrupts(INT_RTCC);		//Timer0
+	disable_interrupts(INT_RB);
+   //enable_interrupts(INT_RB);	// Address = 0Bh/8Bh/10Bh/18Bh for INTCON: GIE PEIE T0IE INTE RBIE T0IF INTF RBIF (Note: RBIE)	
+				// Enable External interrupt on RB0/INT/SEG0 pin
+			   	// these enable the interrupts but since the GLOBAL is disabled they
+   				// are not activated until the following statement: enable_interrupts(INT_RB)
+
+		//enable_interrupts(INT_EXT);	// Enable External interrupt on RB0/INT/SEG0 pin
+		disable_interrupts(INT_EXT);	// Disable External interrupt on RB0/INT/SEG0 pin
+			ext_int_edge( H_TO_L );   	// falling edge setting for INT EXT
+
+//   enable_interrupts(INT_AD);
+//   enable_interrupts(INT_TBE);
+ //  enable_interrupts(INT_RDA);		// RS232 ON
+	disable_interrupts(INT_RDA); 	// RS232 OFF
+  		//enable_interrupts(INT_TIMER1);
+ //  enable_interrupts(INT_TIMER2);
+ //  enable_interrupts(INT_CCP1);
+ //  enable_interrupts(INT_SSP);
+ //  enable_interrupts(INT_TIMER0);
+ //  enable_interrupts(INT_EEPROM);
+ //  enable_interrupts(INT_OSC_FAIL);
+ //  enable_interrupts(INT_LCD);
+ //  enable_interrupts(INT_LOWVOLT);
+ //  enable_interrupts(INT_COMP);
+ //  enable_interrupts(INT_COMP2);
+
+// ************************************************************************************************
+// ================================================================================================
+
+
+
+
+
+
+
+
+
+// --------------------------------------------------------------------------------
+// ******************** Interrupt Service Routine function ************************
+// --------------------------------------------------------------------------------
+/*
+Timer0 (Module) Operation
+
+   Timer mode is selected by clearing the T0CS bit (OPTION_REG<5>). In Timer mode, the Timer0
+module will increment every instruction cycle (without prescaler). If TMR0 is written, the 
+increment is inhibited for the following two instruction cycles. The user can work around this 
+by writing an adjusted value to the TMR0 register.
+
+   Interrupt on overflow from FFh to 00h
+*/
+
+#int_RTCC	//Timer0
+
+void  RTCC_isr(void)
+
+{
+
+
+
+}
+
+
+
+#int_RB
+void  RB_isr(void) 
+{
+	
+
+
+}
+
+#int_EXT
+void  EXT_isr(void) 		// Function call for 'ISR'
+{
+
+}
+
+#int_AD
+void  AD_isr(void) 
+{
+
+}
+
+#int_TBE
+void  TBE_isr(void) 
+{
+
+}
+
+#int_RDA
+void  RDA_isr(void) 
+{
+	
+	Fun1();
+	Fun2();
+}
+
+#int_TIMER1
+void  TIMER1_isr(void) 
+{
+
+
+}
+
+#int_TIMER2
+void  TIMER2_isr(void) 
+{
+
+
+}
+
+#int_CCP1
+void  CCP1_isr(void) 
+{
+
+}
+
+#int_SSP
+void  SSP_isr(void) 
+{
+
+}
+
+#int_TIMER0
+void  TIMER0_isr(void) 
+{
+	
+
+}
+
+#int_EEPROM
+void  EEPROM_isr(void) 
+{
+
+}
+
+#int_OSC_FAIL
+void  OSC_FAIL_isr(void) 
+{
+
+}
+
+#int_LCD
+void  LCD_isr(void) 
+{
+
+}
+
+#int_LOWVOLT
+void  LOWVOLT_isr(void) 
+{
+
+}
+
+#int_COMP
+void  COMP_isr(void) 
+{
+
+}
+
+#int_COMP2
+void  COMP2_isr(void) 
+{
+
+}
+
+// --------------------------------------------------------------------------------
+
+
+
+
+// ====================================================================================
+// -----------------------------------------------------------------------------------
+// ************************* General Service Routine function ************************
+// ===================================================================================
+// ===================================================================================
+
+
+
+
+
+
+

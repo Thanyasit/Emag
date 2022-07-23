@@ -1,0 +1,33 @@
+[PROJECT]
+Target=D:\Work T.Pongsak\Microcontroller\Work\Joystick\JoyRx887.hex
+Development_Mode=
+Processor_Text=PIC16F887
+ToolSuite=CCS
+Processor=0x887F
+[D:\Work T.Pongsak\Microcontroller\Work\Joystick\JoyRx887]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=D:\Work T.Pongsak\Microcontroller\Work\Joystick\JoyRx887.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=D:\Work T.Pongsak\Microcontroller\Work\Joystick\JoyRx887
+[Opened Files]
+1=D:\Work T.Pongsak\Microcontroller\Work\Joystick\JoyRx887.c
+2=D:\Work T.Pongsak\Microcontroller\Work\Joystick\JoyRx887.h
+3=C:\Program Files (x86)\PICC\drivers\lcd.c
+4=
+5=C:\Program Files (x86)\PICC\drivers\stddef.h
+6=C:\Program Files (x86)\PICC\drivers\string.h
+7=C:\Program Files (x86)\PICC\drivers\ctype.h
+8=..\Joystick\JoyRx887.c
+9=D:\Work T.Pongsak\Microcontroller\Work\Joystick\JoyRx887.h
+10=C:\Program Files (x86)\PICC\drivers\lcd.c
+11=

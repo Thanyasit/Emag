@@ -1,0 +1,103 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01B-01C CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028-029 save
+02A     x
+02B     b
+02C     f
+02D     count
+02E     s
+02F     s1
+030     d
+031     sum
+032     sum2
+033     M
+034     @TRIS_C
+035     MAIN.start
+036     MAIN.level
+037     MAIN.mag
+038     checkjoystick.i
+038     moter_wheel.data
+038     ButtonLR.tarry
+039     @delay_ms2.P1
+039     checkjoystick.sc
+03A     checkjoystick.a
+03B     checkjoystick.@SCRATCH
+03C     checkjoystick.@SCRATCH
+03D     checkjoystick.@SCRATCH
+03E     @MUL88.P1
+03E     checkjoystick.@SCRATCH
+03F     @MUL88.P1
+040     rs232_isr.@SCRATCH
+041     rs232_isr.@SCRATCH
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+07F     @INTERRUPT_AREA
+0FF     @INTERRUPT_AREA
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+
+01BC  @delay_ms2
+0035  rs232_isr
+048C  MAIN
+01BA  delay
+008C  checkjoystick
+0067  @MUL88
+01D0  moter_wheel
+03E3  ButtonLR
+048C  @cinit
+
+Project Directory:
+    D:\Work T.Pongsak\Microcontroller\Work\Joystick\
+
+Project Files:
+    JoyRx887.c
+    JoyRx887.h
+    C:\Program Files (x86)\PICC\devices\16F887.h
+
+Units:
+    JoyRx887.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      JoyRx887.err
+    Ext Symbols: JoyRx887.esym
+    INHX8:       JoyRx887.hex
+    Symbols:     JoyRx887.sym
+    List:        JoyRx887.lst
+    Debug/COFF:  JoyRx887.cof
+    Project:     JoyRx887.PJT
+    Call Tree:   JoyRx887.tre
+    Statistics:  JoyRx887.sta

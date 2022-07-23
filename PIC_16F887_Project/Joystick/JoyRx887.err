@@ -1,0 +1,4 @@
+>>> Warning 203 "JoyRx887.c" Line 78(1,1): Condition always TRUE
+>>> Warning 201 "JoyRx887.c" Line 371(1,1): Assignment inside relational expression
+      Memory usage:   ROM=18%      RAM=8% - 11%
+      0 Errors,  2 Warnings.

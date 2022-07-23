@@ -1,0 +1,9 @@
+>>> Warning 225 "C:\Program Files (x86)\PICC\drivers\lcd.c" Line 70(17,57): Duplicate #define
+>>> Warning 216 "slave2.c" Line 73(0,1): Interrupts disabled during call to prevent re-entrancy:  (@delay_ms1)
+>>> Warning 216 "slave2.c" Line 73(0,1): Interrupts disabled during call to prevent re-entrancy:  (lcd_send_nibble)
+>>> Warning 216 "slave2.c" Line 73(0,1): Interrupts disabled during call to prevent re-entrancy:  (lcd_send_byte)
+>>> Warning 216 "slave2.c" Line 73(0,1): Interrupts disabled during call to prevent re-entrancy:  (lcd_putc)
+>>> Warning 216 "slave2.c" Line 73(0,1): Interrupts disabled during call to prevent re-entrancy:  (lcd_gotoxy)
+>>> Warning 202 "slave2.c" Line 6(6,9): Variable never used:   rec
+      Memory usage:   ROM=8%      RAM=10% - 18%
+      0 Errors,  7 Warnings.

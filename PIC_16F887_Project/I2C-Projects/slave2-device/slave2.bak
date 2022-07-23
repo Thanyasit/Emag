@@ -1,0 +1,25 @@
+#include "D:\2557-class\CCS-project\I2C-Projects\slave2-device\slave2.h"
+#define LCD_TYPE 2
+#include <lcd.c>
+void main()
+{
+   lcd_init();
+
+   setup_adc_ports(NO_ANALOGS);
+   setup_adc(ADC_OFF);
+   setup_psp(PSP_DISABLED);
+   setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1);
+   setup_timer_1(T1_DISABLED);
+   setup_timer_2(T2_DISABLED,0,1);
+   setup_comparator(NC_NC_NC_NC);
+   setup_vref(FALSE);
+
+   enable_interrupts(GLOBAL);
+   enable_interrupts(INT_SSP);
+
+   lcd_putc("slave2");lcd_gotoxy(1,2);
+   lcd_putc("recieve : ");
+   while (TRUE) {
+   } 
+
+}

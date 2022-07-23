@@ -1,0 +1,1079 @@
+CCS PCM C Compiler, Version 4.049, 25917               28-Á.¤.-17 11:11
+
+               Filename: ABU2.lst
+
+               ROM used: 649 words (8%)
+                         Largest free fragment is 2048
+               RAM used: 24 (7%) at main() level
+                         25 (7%) worst case
+               Stack:    3 worst case (2 in main + 1 for interrupts)
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   1B1
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  MOVF   7B,W
+0016:  MOVWF  27
+0017:  BCF    03.7
+0018:  BCF    03.5
+0019:  BTFSS  0B.5
+001A:  GOTO   01D
+001B:  BTFSC  0B.2
+001C:  GOTO   03C
+001D:  MOVLW  8C
+001E:  MOVWF  04
+001F:  BTFSS  00.5
+0020:  GOTO   023
+0021:  BTFSC  0C.5
+0022:  GOTO   03F
+0023:  MOVLW  8C
+0024:  MOVWF  04
+0025:  BTFSS  00.0
+0026:  GOTO   029
+0027:  BTFSC  0C.0
+0028:  GOTO   042
+0029:  MOVF   22,W
+002A:  MOVWF  04
+002B:  MOVF   23,W
+002C:  MOVWF  77
+002D:  MOVF   24,W
+002E:  MOVWF  78
+002F:  MOVF   25,W
+0030:  MOVWF  79
+0031:  MOVF   26,W
+0032:  MOVWF  7A
+0033:  MOVF   27,W
+0034:  MOVWF  7B
+0035:  MOVF   20,W
+0036:  MOVWF  0A
+0037:  SWAPF  21,W
+0038:  MOVWF  03
+0039:  SWAPF  7F,F
+003A:  SWAPF  7F,W
+003B:  RETFIE
+003C:  BCF    0A.3
+003D:  BCF    0A.4
+003E:  GOTO   045
+003F:  BCF    0A.3
+0040:  BCF    0A.4
+0041:  GOTO   0DB
+0042:  BCF    0A.3
+0043:  BCF    0A.4
+0044:  GOTO   0D7
+.................... #include "D:\Work T.Pongsak\Microcontroller\Work\ABU2\ABU2.h" 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+.................... #list 
+....................  
+.................... #device adc=8 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES HS                       //High speed Osc (> 4mhz) 
+.................... #FUSES NOPUT                    //No Power Up Timer 
+.................... #FUSES PROTECT                  //Code protected from reads 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOCPD                    //No EE protection 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+....................  
+.................... #use delay(clock=20000000) 
+.................... #use rs232(baud=115200,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8) 
+....................  
+.................... #define M1  PIN_D0  // PWN Moter1 
+.................... #define M1R PIN_D1  // Moter1 Reves 
+.................... #define M2  PIN_D2  // PWN Moter2 
+.................... #define M2R PIN_D3  // Moter2 Reves 
+.................... #define M3  PIN_D4  // PWN Moter3 
+.................... #define M3R PIN_D5  // Moter3 Reves 
+.................... #define M4  PIN_D6  // PWN Moter4 
+.................... #define M4R PIN_D7  // Moter4 Reves 
+.................... #define ENA PIN_B0  // Enable 
+.................... #define LMM PIN_B1  // Limit Mag 
+.................... #define LMS PIN_B2  // Limit Shoot 
+.................... #define LLU PIN_B3  // Limit liftUp 
+.................... #define LLD PIN_B4  // Limit liftDown 
+.................... #define LAU PIN_B5  // Limit AngleUp 
+.................... #define LAD PIN_B6  // Limit AngleDown 
+.................... //#define Lm7 PIN_B7  // Limit Shoot  
+.................... #define Mag PIN_C0  // Moter Mag 
+.................... #define SOT PIN_C3  // Moter Shoot 
+.................... #define MA  PIN_C4  // Moter Angle 
+.................... #define MAR PIN_C5  // Moter Angle Reves 
+.................... #define ML  PIN_A2  // Moter Lift  
+.................... #define MLR PIN_A5  // Moter Lift Reves 
+.................... #define COT PIN_A3  // Moter Couter 
+.................... //#define M4R PIN_A3  // Moter4 Reves 
+.................... //#define M4R PIN_A4  // Moter4 Reves 
+.................... //#define M4R PIN_A5  // Moter4 Reves 
+.................... //#define M4R PIN_E0  // Moter4 Reves 
+.................... //#define M4R PIN_E1  // Moter4 Reves 
+.................... //#define M4R PIN_E2  // Moter4 Reves 
+.................... #define ph1 2000    // 0.4 sec. step count 
+.................... #define ph2 4000 
+.................... #define ph3 6000 
+.................... #define ph4 8000 
+.................... #define ph5 1000 
+.................... void delay(void);//delay 
+.................... void Up(void); 
+.................... void Left(void); 
+.................... void Right(void); 
+.................... void Down(void); 
+.................... void RollRight(void); 
+.................... void RollLeft(void); 
+.................... void Shoot(void); 
+.................... void RollMag(void); 
+.................... void LiftUp(void); 
+.................... void LiftDown(void); 
+.................... void AngleUp(void); 
+.................... void AngleDown(void); 
+.................... void Upspeed(void); 
+.................... void Downspped(void); 
+.................... void Stop(void); 
+.................... void Dutycycle(void); 
+.................... void goAhead1(void); 
+....................  
+.................... #use delay (clock=20m) 
+*
+00E3:  MOVLW  32
+00E4:  MOVWF  04
+00E5:  BCF    03.7
+00E6:  MOVF   00,W
+00E7:  BTFSC  03.2
+00E8:  GOTO   0F6
+00E9:  MOVLW  06
+00EA:  MOVWF  78
+00EB:  CLRF   77
+00EC:  DECFSZ 77,F
+00ED:  GOTO   0EC
+00EE:  DECFSZ 78,F
+00EF:  GOTO   0EB
+00F0:  MOVLW  7B
+00F1:  MOVWF  77
+00F2:  DECFSZ 77,F
+00F3:  GOTO   0F2
+00F4:  DECFSZ 00,F
+00F5:  GOTO   0E9
+00F6:  RETLW  00
+.................... #use fast_io(A) 
+.................... #use fast_io(B) 
+.................... #use fast_io(C) 
+.................... #use fast_io(D) 
+.................... #use fast_io(E) 
+.................... int x=0,duty=0,i=0,f=1,t=0; 
+*
+01C2:  BCF    03.5
+01C3:  CLRF   28
+01C4:  CLRF   29
+01C5:  CLRF   2A
+01C6:  MOVLW  01
+01C7:  MOVWF  2B
+01C8:  CLRF   2C
+.................... int y=0,d=0;//0=0%,1=20%,2=40%,3=60%,4=80%,5=100% 
+01C9:  CLRF   2D
+01CA:  CLRF   2E
+.................... int16 s=0; 
+01CB:  CLRF   2F
+01CC:  CLRF   30
+.................... #INT_RTCC 
+.................... void timer0_isr(void){ 
+....................    SET_TIMER0(254); //0.1ms 
+*
+0045:  MOVLW  FE
+0046:  MOVWF  01
+....................    s++; 
+0047:  INCF   2F,F
+0048:  BTFSC  03.2
+0049:  INCF   30,F
+....................    if(s>=10000){ 
+004A:  MOVF   30,W
+004B:  SUBLW  26
+004C:  BTFSC  03.0
+004D:  GOTO   059
+004E:  XORLW  FF
+004F:  BTFSS  03.2
+0050:  GOTO   055
+0051:  MOVF   2F,W
+0052:  SUBLW  0F
+0053:  BTFSC  03.0
+0054:  GOTO   059
+....................       s=10000; 
+0055:  MOVLW  27
+0056:  MOVWF  30
+0057:  MOVLW  10
+0058:  MOVWF  2F
+....................    } 
+....................    if(s>=0&&s<ph1){ 
+0059:  MOVF   30,W
+005A:  SUBLW  07
+005B:  BTFSS  03.0
+005C:  GOTO   066
+005D:  BTFSS  03.2
+005E:  GOTO   063
+005F:  MOVF   2F,W
+0060:  SUBLW  CF
+0061:  BTFSS  03.0
+0062:  GOTO   066
+....................       d = 1; 
+0063:  MOVLW  01
+0064:  MOVWF  2E
+....................    }else if(s>=ph1&&s<ph2){ 
+0065:  GOTO   0BB
+0066:  MOVF   30,W
+0067:  SUBLW  06
+0068:  BTFSC  03.0
+0069:  GOTO   07E
+006A:  XORLW  FF
+006B:  BTFSS  03.2
+006C:  GOTO   071
+006D:  MOVF   2F,W
+006E:  SUBLW  CF
+006F:  BTFSC  03.0
+0070:  GOTO   07E
+0071:  MOVF   30,W
+0072:  SUBLW  0F
+0073:  BTFSS  03.0
+0074:  GOTO   07E
+0075:  BTFSS  03.2
+0076:  GOTO   07B
+0077:  MOVF   2F,W
+0078:  SUBLW  9F
+0079:  BTFSS  03.0
+007A:  GOTO   07E
+....................       d = 2; 
+007B:  MOVLW  02
+007C:  MOVWF  2E
+....................    }else if(s>=ph2&&s<ph3){ 
+007D:  GOTO   0BB
+007E:  MOVF   30,W
+007F:  SUBLW  0E
+0080:  BTFSC  03.0
+0081:  GOTO   096
+0082:  XORLW  FF
+0083:  BTFSS  03.2
+0084:  GOTO   089
+0085:  MOVF   2F,W
+0086:  SUBLW  9F
+0087:  BTFSC  03.0
+0088:  GOTO   096
+0089:  MOVF   30,W
+008A:  SUBLW  17
+008B:  BTFSS  03.0
+008C:  GOTO   096
+008D:  BTFSS  03.2
+008E:  GOTO   093
+008F:  MOVF   2F,W
+0090:  SUBLW  6F
+0091:  BTFSS  03.0
+0092:  GOTO   096
+....................       d = 3; 
+0093:  MOVLW  03
+0094:  MOVWF  2E
+....................    }else if(s>=ph3&&s<ph4){ 
+0095:  GOTO   0BB
+0096:  MOVF   30,W
+0097:  SUBLW  16
+0098:  BTFSC  03.0
+0099:  GOTO   0AE
+009A:  XORLW  FF
+009B:  BTFSS  03.2
+009C:  GOTO   0A1
+009D:  MOVF   2F,W
+009E:  SUBLW  6F
+009F:  BTFSC  03.0
+00A0:  GOTO   0AE
+00A1:  MOVF   30,W
+00A2:  SUBLW  1F
+00A3:  BTFSS  03.0
+00A4:  GOTO   0AE
+00A5:  BTFSS  03.2
+00A6:  GOTO   0AB
+00A7:  MOVF   2F,W
+00A8:  SUBLW  3F
+00A9:  BTFSS  03.0
+00AA:  GOTO   0AE
+....................       d = 4; 
+00AB:  MOVLW  04
+00AC:  MOVWF  2E
+....................    }else if(s>=ph4){ 
+00AD:  GOTO   0BB
+00AE:  MOVF   30,W
+00AF:  SUBLW  1E
+00B0:  BTFSC  03.0
+00B1:  GOTO   0BB
+00B2:  XORLW  FF
+00B3:  BTFSS  03.2
+00B4:  GOTO   0B9
+00B5:  MOVF   2F,W
+00B6:  SUBLW  3F
+00B7:  BTFSC  03.0
+00B8:  GOTO   0BB
+....................       d = 5; 
+00B9:  MOVLW  05
+00BA:  MOVWF  2E
+....................    } 
+....................    if(y==5){ 
+00BB:  MOVF   2D,W
+00BC:  SUBLW  05
+00BD:  BTFSS  03.2
+00BE:  GOTO   0C4
+....................       output_high(M1); 
+00BF:  BSF    08.0
+....................       output_high(M2); 
+00C0:  BSF    08.2
+....................       output_high(M3); 
+00C1:  BSF    08.4
+....................       output_high(M4); 
+00C2:  BSF    08.6
+....................       y=0; 
+00C3:  CLRF   2D
+....................    } 
+....................    if(y>=d){ 
+00C4:  MOVF   2E,W
+00C5:  SUBWF  2D,W
+00C6:  BTFSS  03.0
+00C7:  GOTO   0CE
+....................       output_low(M1); 
+00C8:  BCF    08.0
+....................       output_low(M2); 
+00C9:  BCF    08.2
+....................       output_low(M3); 
+00CA:  BCF    08.4
+....................       output_low(M4); 
+00CB:  BCF    08.6
+....................       y++; 
+00CC:  INCF   2D,F
+....................    }else{ 
+00CD:  GOTO   0D3
+....................       output_high(M1); 
+00CE:  BSF    08.0
+....................       output_high(M2); 
+00CF:  BSF    08.2
+....................       output_high(M3); 
+00D0:  BSF    08.4
+....................       output_high(M4); 
+00D1:  BSF    08.6
+....................       y++; 
+00D2:  INCF   2D,F
+....................    } 
+.................... } 
+.................... //***************************************************************************** 
+00D3:  BCF    0B.2
+00D4:  BCF    0A.3
+00D5:  BCF    0A.4
+00D6:  GOTO   029
+.................... #INT_TIMER1 
+.................... void timer1_isr(){ 
+.................... /* 
+....................    set_timer1(65474);//65536-62 
+....................    if(y==5){ 
+....................       output_high(M1); 
+....................       y=0; 
+....................    } 
+....................    if(y>=d){ 
+....................       output_low(M1); 
+....................       y++; 
+....................    }else{ 
+....................       output_high(M1); 
+....................       y++; 
+....................    } 
+....................    */ 
+.................... } 
+.................... //***************************************************************************** 
+00D7:  BCF    0C.0
+00D8:  BCF    0A.3
+00D9:  BCF    0A.4
+00DA:  GOTO   029
+.................... #INT_RDA 
+.................... void rs232_isr(){ 
+....................    x=getc(); 
+00DB:  BTFSS  0C.5
+00DC:  GOTO   0DB
+00DD:  MOVF   1A,W
+00DE:  MOVWF  28
+.................... } 
+.................... //***************************************************************************** 
+00DF:  BCF    0C.5
+00E0:  BCF    0A.3
+00E1:  BCF    0A.4
+00E2:  GOTO   029
+.................... void main() 
+.................... { 
+*
+01B1:  CLRF   04
+01B2:  BCF    03.7
+01B3:  MOVLW  1F
+01B4:  ANDWF  03,F
+01B5:  MOVLW  0A
+01B6:  BSF    03.5
+01B7:  MOVWF  19
+01B8:  MOVLW  A6
+01B9:  MOVWF  18
+01BA:  MOVLW  90
+01BB:  BCF    03.5
+01BC:  MOVWF  18
+01BD:  BSF    03.5
+01BE:  BSF    1F.0
+01BF:  BSF    1F.1
+01C0:  BSF    1F.2
+01C1:  BCF    1F.3
+....................    setup_adc_ports(NO_ANALOGS); 
+*
+01CD:  BSF    03.5
+01CE:  BSF    1F.0
+01CF:  BSF    1F.1
+01D0:  BSF    1F.2
+01D1:  BCF    1F.3
+....................    setup_adc(ADC_OFF); 
+01D2:  BCF    03.5
+01D3:  BCF    1F.0
+....................    setup_psp(PSP_DISABLED); 
+01D4:  BSF    03.5
+01D5:  BCF    09.4
+....................    setup_spi(SPI_SS_DISABLED); 
+01D6:  BCF    03.5
+01D7:  BCF    14.5
+01D8:  MOVLW  01
+01D9:  MOVWF  14
+01DA:  MOVLW  00
+01DB:  BSF    03.5
+01DC:  MOVWF  14
+....................    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_256); 
+01DD:  MOVF   01,W
+01DE:  ANDLW  C0
+01DF:  IORLW  07
+01E0:  MOVWF  01
+....................    setup_timer_1(T1_INTERNAL|T1_DIV_BY_8); 
+01E1:  MOVLW  B5
+01E2:  BCF    03.5
+01E3:  MOVWF  10
+....................    setup_timer_2(T2_DIV_BY_16,156,1); 
+01E4:  MOVLW  00
+01E5:  MOVWF  78
+01E6:  IORLW  06
+01E7:  MOVWF  12
+01E8:  MOVLW  9C
+01E9:  BSF    03.5
+01EA:  MOVWF  12
+....................    setup_ccp1(CCP_PWM); 
+01EB:  BCF    03.5
+01EC:  BCF    07.2
+01ED:  MOVLW  0C
+01EE:  MOVWF  17
+....................    setup_ccp2(CCP_PWM); 
+01EF:  BCF    07.1
+01F0:  MOVWF  1D
+....................    set_pwm1_duty(duty); 
+01F1:  MOVF   29,W
+01F2:  MOVWF  15
+....................    set_pwm2_duty(duty); 
+01F3:  MOVF   29,W
+01F4:  MOVWF  1B
+....................    // TODO: USER CODE!! 
+....................    set_tris_d(0x00); 
+01F5:  MOVLW  00
+01F6:  BSF    03.5
+01F7:  MOVWF  08
+....................    set_tris_c(0x00); 
+01F8:  MOVWF  07
+....................    set_tris_b(0xFE);//80 
+01F9:  MOVLW  FE
+01FA:  MOVWF  06
+....................    set_tris_a(0x00); 
+01FB:  MOVLW  00
+01FC:  MOVWF  05
+....................    set_tris_e(0x00); 
+01FD:  BCF    09.0
+01FE:  BCF    09.1
+01FF:  BCF    09.2
+....................    output_a(0x00); 
+0200:  BCF    03.5
+0201:  CLRF   05
+....................    output_low(ENA); 
+0202:  BCF    06.0
+....................    output_c(0x00); 
+0203:  CLRF   07
+....................    output_d(0x00); 
+0204:  CLRF   08
+....................    output_e(0x00); 
+0205:  CLRF   09
+....................    enable_interrupts(GLOBAL); 
+0206:  MOVLW  C0
+0207:  IORWF  0B,F
+....................    do{ 
+....................       x = getc(); 
+0208:  BTFSS  0C.5
+0209:  GOTO   208
+020A:  MOVF   1A,W
+020B:  MOVWF  28
+....................    }while(x!='1'); 
+020C:  MOVF   28,W
+020D:  SUBLW  31
+020E:  BTFSS  03.2
+020F:  GOTO   208
+....................    x=0;  
+0210:  CLRF   28
+....................    output_e(7); 
+0211:  MOVLW  07
+0212:  MOVWF  09
+....................    delay_ms(500); 
+0213:  MOVLW  02
+0214:  MOVWF  31
+0215:  MOVLW  FA
+0216:  MOVWF  32
+0217:  CALL   0E3
+0218:  DECFSZ 31,F
+0219:  GOTO   215
+....................    output_e(0); 
+021A:  CLRF   09
+....................    delay_ms(500); 
+021B:  MOVLW  02
+021C:  MOVWF  31
+021D:  MOVLW  FA
+021E:  MOVWF  32
+021F:  CALL   0E3
+0220:  DECFSZ 31,F
+0221:  GOTO   21D
+....................    output_e(7); 
+0222:  MOVLW  07
+0223:  MOVWF  09
+....................    delay_ms(500); 
+0224:  MOVLW  02
+0225:  MOVWF  31
+0226:  MOVLW  FA
+0227:  MOVWF  32
+0228:  CALL   0E3
+0229:  DECFSZ 31,F
+022A:  GOTO   226
+....................    output_e(0); 
+022B:  CLRF   09
+....................    output_high(ENA); //Enable 
+022C:  BSF    06.0
+....................    enable_interrupts(INT_RDA); 
+022D:  BSF    03.5
+022E:  BSF    0C.5
+....................    while(1){ 
+....................       if(x=='A'){//Up 
+022F:  BCF    03.5
+0230:  MOVF   28,W
+0231:  SUBLW  41
+0232:  BTFSS  03.2
+0233:  GOTO   236
+....................          Up(); 
+0234:  GOTO   0F7
+....................       }else if(x=='D'){//Right 
+0235:  GOTO   285
+0236:  MOVF   28,W
+0237:  SUBLW  44
+0238:  BTFSS  03.2
+0239:  GOTO   23C
+....................          Right(); 
+023A:  GOTO   0FF
+....................       }else if(x=='B'){//Down 
+023B:  GOTO   285
+023C:  MOVF   28,W
+023D:  SUBLW  42
+023E:  BTFSS  03.2
+023F:  GOTO   242
+....................          Down(); 
+0240:  GOTO   107
+....................       }else if(x=='C'){//Left 
+0241:  GOTO   285
+0242:  MOVF   28,W
+0243:  SUBLW  43
+0244:  BTFSS  03.2
+0245:  GOTO   248
+....................          Left(); 
+0246:  GOTO   10F
+....................       }else if(x=='H'){//Roll Right 
+0247:  GOTO   285
+0248:  MOVF   28,W
+0249:  SUBLW  48
+024A:  BTFSS  03.2
+024B:  GOTO   24E
+....................          RollRight(); 
+024C:  GOTO   117
+....................       }else if(x=='G'){//Roll Left 
+024D:  GOTO   285
+024E:  MOVF   28,W
+024F:  SUBLW  47
+0250:  BTFSS  03.2
+0251:  GOTO   254
+....................          RollLeft(); 
+0252:  GOTO   122
+....................       }else if(x=='K'){ //Shoot  
+0253:  GOTO   285
+0254:  MOVF   28,W
+0255:  SUBLW  4B
+0256:  BTFSS  03.2
+0257:  GOTO   25A
+....................          Shoot(); 
+0258:  GOTO   12D
+....................       }else if(x=='I'){//Mag 
+0259:  GOTO   285
+025A:  MOVF   28,W
+025B:  SUBLW  49
+025C:  BTFSS  03.2
+025D:  GOTO   260
+....................          RollMag(); 
+025E:  GOTO   135
+....................       }else if(x=='L'){//Up speed roll shoot 
+025F:  GOTO   285
+0260:  MOVF   28,W
+0261:  SUBLW  4C
+0262:  BTFSS  03.2
+0263:  GOTO   266
+....................          Upspeed(); 
+0264:  GOTO   139
+....................       }else if(x=='J'){//Down speed roll shoot 
+0265:  GOTO   285
+0266:  MOVF   28,W
+0267:  SUBLW  4A
+0268:  BTFSS  03.2
+0269:  GOTO   26C
+....................          Downspped(); 
+026A:  GOTO   157
+....................       }else if(x=='E'){//Lift Up 
+026B:  GOTO   285
+026C:  MOVF   28,W
+026D:  SUBLW  45
+026E:  BTFSS  03.2
+026F:  GOTO   272
+....................          LiftUp(); 
+0270:  GOTO   179
+....................       }else if(x=='F'){//Lift Down 
+0271:  GOTO   285
+0272:  MOVF   28,W
+0273:  SUBLW  46
+0274:  BTFSS  03.2
+0275:  GOTO   278
+....................          LiftDown(); 
+0276:  GOTO   17E
+....................       }else if(x=='M'){//Angle Up 
+0277:  GOTO   285
+0278:  MOVF   28,W
+0279:  SUBLW  4D
+027A:  BTFSS  03.2
+027B:  GOTO   27E
+....................          AngleUp(); 
+027C:  GOTO   183
+....................       }else if(x=='N'){//Angle Down 
+027D:  GOTO   285
+027E:  MOVF   28,W
+027F:  SUBLW  4E
+0280:  BTFSS  03.2
+0281:  GOTO   284
+....................          AngleDown(); 
+0282:  GOTO   188
+....................       }else{ 
+0283:  GOTO   285
+....................          Stop(); 
+0284:  GOTO   18D
+....................       } 
+....................       x=0; 
+0285:  CLRF   28
+....................       delay();       
+0286:  GOTO   198
+....................    } 
+0287:  GOTO   230
+.................... } 
+.................... //***************************************************************************** 
+.................... void delay(){//Sensor 
+....................    if(!input(LMM)){ 
+*
+0198:  BTFSC  06.1
+0199:  GOTO   19E
+*
+0288:  SLEEP
+....................       do{ 
+....................          output_high(Mag); 
+*
+019A:  BSF    07.0
+....................       }while(!input(LMM)); 
+019B:  BTFSS  06.1
+019C:  GOTO   19A
+....................       output_low(Mag); 
+019D:  BCF    07.0
+....................    } 
+....................    for(t=0;t<40;t++){ 
+019E:  CLRF   2C
+019F:  MOVF   2C,W
+01A0:  SUBLW  27
+01A1:  BTFSS  03.0
+01A2:  GOTO   1AE
+....................       if(!input(LMS)){ 
+01A3:  BTFSC  06.2
+01A4:  GOTO   1A9
+....................          output_low(SOT); 
+01A5:  BCF    07.3
+....................          output_low(COT); 
+01A6:  BCF    05.3
+....................          f=1; 
+01A7:  MOVLW  01
+01A8:  MOVWF  2B
+....................       } 
+....................     delay_ms(1); 
+01A9:  MOVLW  01
+01AA:  MOVWF  32
+01AB:  CALL   0E3
+....................    } 
+01AC:  INCF   2C,F
+01AD:  GOTO   19F
+.................... } 
+01AE:  BCF    0A.3
+01AF:  BCF    0A.4
+01B0:  GOTO   287 (RETURN)
+.................... //***************************************************************************** 
+.................... void Up(){ 
+....................     enable_interrupts(INT_TIMER0); 
+*
+00F7:  BSF    0B.5
+.................... //    enable_interrupts(INT_TIMER1); 
+.................... //    output_high(M1); //FWD 
+....................     output_low(M1R); 
+00F8:  BCF    08.1
+.................... //    output_high(M2); //REV 
+....................     output_high(M2R);  
+00F9:  BSF    08.3
+.................... //    output_high(M3); //REV 
+....................     output_high(M3R);  
+00FA:  BSF    08.5
+.................... //    output_high(M4); //FWD 
+....................     output_low(M4R); 
+00FB:  BCF    08.7
+.................... } 
+00FC:  BCF    0A.3
+00FD:  BCF    0A.4
+00FE:  GOTO   235 (RETURN)
+.................... //***************************************************************************** 
+.................... void Left(){ 
+....................    enable_interrupts(INT_TIMER0); 
+*
+010F:  BSF    0B.5
+.................... //   enable_interrupts(INT_TIMER1); 
+.................... //   output_high(M1); //REV 
+....................    output_high(M1R); 
+0110:  BSF    08.1
+.................... //   output_high(M2); //REV 
+....................    output_high(M2R); 
+0111:  BSF    08.3
+.................... //   output_high(M3); //REV 
+....................    output_high(M3R);  
+0112:  BSF    08.5
+.................... //   output_high(M4); //REV 
+....................    output_high(M4R); 
+0113:  BSF    08.7
+.................... } 
+0114:  BCF    0A.3
+0115:  BCF    0A.4
+0116:  GOTO   247 (RETURN)
+.................... //***************************************************************************** 
+.................... void Right(){ 
+....................    enable_interrupts(INT_TIMER0); 
+*
+00FF:  BSF    0B.5
+.................... //   enable_interrupts(INT_TIMER1); 
+.................... //   output_high(M1); //FWD 
+....................    output_low(M1R); 
+0100:  BCF    08.1
+.................... //   output_high(M2); //FWD 
+....................    output_low(M2R); 
+0101:  BCF    08.3
+.................... //   output_high(M3); //FWD 
+....................    output_low(M3R);  
+0102:  BCF    08.5
+.................... //   output_high(M4); //FWD 
+....................    output_low(M4R);  
+0103:  BCF    08.7
+.................... } 
+0104:  BCF    0A.3
+0105:  BCF    0A.4
+0106:  GOTO   23B (RETURN)
+.................... //***************************************************************************** 
+.................... void Down(){ 
+....................    enable_interrupts(INT_TIMER0); 
+0107:  BSF    0B.5
+.................... //   enable_interrupts(INT_TIMER1); 
+.................... //   output_high(M1); //REV 
+....................    output_high(M1R); 
+0108:  BSF    08.1
+.................... //   output_high(M2); //FWD 
+....................    output_low(M2R); 
+0109:  BCF    08.3
+.................... //   output_high(M3); //FWD 
+....................    output_low(M3R);  
+010A:  BCF    08.5
+.................... //   output_high(M4); //REV 
+....................    output_high(M4R);  
+010B:  BSF    08.7
+.................... } 
+010C:  BCF    0A.3
+010D:  BCF    0A.4
+010E:  GOTO   241 (RETURN)
+.................... //***************************************************************************** 
+.................... void RollRight(){ 
+.................... //   enable_interrupts(INT_TIMER0); 
+.................... //   enable_interrupts(INT_TIMER1); 
+....................    output_high(M1); //FWD// 
+*
+0117:  BSF    08.0
+....................    output_low(M1R); 
+0118:  BCF    08.1
+....................    output_high(M2); //FWD// 
+0119:  BSF    08.2
+....................    output_low(M2R); 
+011A:  BCF    08.3
+....................    output_high(M3); //REV// 
+011B:  BSF    08.4
+....................    output_high(M3R);  
+011C:  BSF    08.5
+....................    output_high(M4); //REV// 
+011D:  BSF    08.6
+....................    output_high(M4R);  
+011E:  BSF    08.7
+.................... } 
+011F:  BCF    0A.3
+0120:  BCF    0A.4
+0121:  GOTO   24D (RETURN)
+.................... //***************************************************************************** 
+.................... void RollLeft(){ 
+.................... //   enable_interrupts(INT_TIMER0); 
+.................... //   enable_interrupts(INT_TIMER1); 
+....................    output_high(M1); //REV 
+0122:  BSF    08.0
+....................    output_high(M1R); 
+0123:  BSF    08.1
+....................    output_high(M2); //REV 
+0124:  BSF    08.2
+....................    output_high(M2R); 
+0125:  BSF    08.3
+....................    output_high(M3); //FWD 
+0126:  BSF    08.4
+....................    output_low(M3R);  
+0127:  BCF    08.5
+....................    output_high(M4); //FWD 
+0128:  BSF    08.6
+....................    output_low(M4R);  
+0129:  BCF    08.7
+.................... } 
+012A:  BCF    0A.3
+012B:  BCF    0A.4
+012C:  GOTO   253 (RETURN)
+.................... //***************************************************************************** 
+.................... void Shoot(){ 
+....................    if(f==1){ 
+012D:  DECFSZ 2B,W
+012E:  GOTO   132
+....................       output_high(SOT); 
+012F:  BSF    07.3
+....................       output_high(COT); 
+0130:  BSF    05.3
+....................       f=0; 
+0131:  CLRF   2B
+....................    } 
+.................... } 
+0132:  BCF    0A.3
+0133:  BCF    0A.4
+0134:  GOTO   259 (RETURN)
+.................... //***************************************************************************** 
+.................... void RollMag(){ 
+....................    output_high(Mag); 
+0135:  BSF    07.0
+.................... } 
+0136:  BCF    0A.3
+0137:  BCF    0A.4
+0138:  GOTO   25F (RETURN)
+.................... //***************************************************************************** 
+.................... void LiftUp(){ 
+....................    output_high(ML); 
+*
+0179:  BSF    05.2
+....................    output_low(MLR); 
+017A:  BCF    05.5
+.................... } 
+017B:  BCF    0A.3
+017C:  BCF    0A.4
+017D:  GOTO   271 (RETURN)
+.................... //***************************************************************************** 
+.................... void LiftDown(){ 
+....................    output_high(ML); 
+017E:  BSF    05.2
+....................    output_high(MLR); 
+017F:  BSF    05.5
+.................... } 
+0180:  BCF    0A.3
+0181:  BCF    0A.4
+0182:  GOTO   277 (RETURN)
+.................... //***************************************************************************** 
+.................... void AngleUp(){ 
+....................    output_high(MA); 
+0183:  BSF    07.4
+....................    output_low(MAR); 
+0184:  BCF    07.5
+.................... } 
+0185:  BCF    0A.3
+0186:  BCF    0A.4
+0187:  GOTO   27D (RETURN)
+.................... //***************************************************************************** 
+.................... void AngleDown(){ 
+....................    output_high(MA); 
+0188:  BSF    07.4
+....................    output_high(MAR); 
+0189:  BSF    07.5
+.................... } 
+018A:  BCF    0A.3
+018B:  BCF    0A.4
+018C:  GOTO   283 (RETURN)
+.................... //***************************************************************************** 
+.................... void Upspeed(){ 
+....................    if(i<15){ 
+*
+0139:  MOVF   2A,W
+013A:  SUBLW  0E
+013B:  BTFSS  03.0
+013C:  GOTO   13E
+....................       i++; 
+013D:  INCF   2A,F
+....................    } 
+....................    duty=(i*8)+37; 
+013E:  RLF    2A,W
+013F:  MOVWF  77
+0140:  RLF    77,F
+0141:  RLF    77,F
+0142:  MOVLW  F8
+0143:  ANDWF  77,F
+0144:  MOVF   77,W
+0145:  ADDLW  25
+0146:  MOVWF  29
+.................... /* 
+....................    if(i<7){ 
+....................       i++; 
+....................    } 
+....................    duty=i*23; 
+.................... */ 
+....................    set_pwm1_duty(duty); 
+0147:  MOVF   29,W
+0148:  MOVWF  15
+....................    set_pwm2_duty(duty); 
+0149:  MOVF   29,W
+014A:  MOVWF  1B
+....................    output_e(i); 
+014B:  MOVF   2A,W
+014C:  MOVWF  09
+....................    if(i>7){// 
+014D:  MOVF   2A,W
+014E:  SUBLW  07
+014F:  BTFSC  03.0
+0150:  GOTO   153
+....................       output_high(PIN_A0); 
+0151:  BSF    05.0
+....................    }else{ 
+0152:  GOTO   154
+....................       output_low(PIN_A0); 
+0153:  BCF    05.0
+....................    } 
+.................... } 
+0154:  BCF    0A.3
+0155:  BCF    0A.4
+0156:  GOTO   265 (RETURN)
+.................... //***************************************************************************** 
+.................... void Downspped(){ 
+....................    if(i>0){ 
+0157:  MOVF   2A,F
+0158:  BTFSC  03.2
+0159:  GOTO   15B
+....................       i--; 
+015A:  DECF   2A,F
+....................    } 
+....................    if(i==0){ 
+015B:  MOVF   2A,F
+015C:  BTFSS  03.2
+015D:  GOTO   160
+....................       duty=0; 
+015E:  CLRF   29
+....................    }else{ 
+015F:  GOTO   169
+....................       duty=(i*8)+37; 
+0160:  RLF    2A,W
+0161:  MOVWF  77
+0162:  RLF    77,F
+0163:  RLF    77,F
+0164:  MOVLW  F8
+0165:  ANDWF  77,F
+0166:  MOVF   77,W
+0167:  ADDLW  25
+0168:  MOVWF  29
+....................    } 
+.................... //   duty=i*23; 
+....................    set_pwm1_duty(duty); 
+0169:  MOVF   29,W
+016A:  MOVWF  15
+....................    set_pwm2_duty(duty); 
+016B:  MOVF   29,W
+016C:  MOVWF  1B
+....................    output_e(i); 
+016D:  MOVF   2A,W
+016E:  MOVWF  09
+....................    if(i>7){// 
+016F:  MOVF   2A,W
+0170:  SUBLW  07
+0171:  BTFSC  03.0
+0172:  GOTO   175
+....................       output_high(PIN_A0); 
+0173:  BSF    05.0
+....................    }else{ 
+0174:  GOTO   176
+....................       output_low(PIN_A0); 
+0175:  BCF    05.0
+....................    } 
+.................... }   
+0176:  BCF    0A.3
+0177:  BCF    0A.4
+0178:  GOTO   26B (RETURN)
+.................... //***************************************************************************** 
+.................... void Stop(){ 
+....................    s=0; 
+*
+018D:  CLRF   30
+018E:  CLRF   2F
+....................    Disable_interrupts(INT_TIMER0); 
+018F:  BCF    0B.5
+.................... //   Disable_interrupts(INT_TIMER1); 
+....................    output_d(0x00); 
+0190:  CLRF   08
+....................    output_low(MA); 
+0191:  BCF    07.4
+....................    output_low(MAR); 
+0192:  BCF    07.5
+....................    output_low(ML); 
+0193:  BCF    05.2
+....................    output_low(MLR); 
+0194:  BCF    05.5
+.................... } 
+0195:  BCF    0A.3
+0196:  BCF    0A.4
+0197:  GOTO   285 (RETURN)
+.................... //***************************************************************************** 
+....................  
+
+Configuration Fuses:
+   Word  1: 0F0A   HS NOWDT NOPUT PROTECT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG

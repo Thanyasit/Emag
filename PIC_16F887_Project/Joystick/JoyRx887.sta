@@ -1,0 +1,54 @@
+
+ROM used: 1492 (18%)
+          1492 (18%) including unused fragments
+
+          2 Average locations per line
+          4 Average locations per statement
+
+RAM used: 30 (8%) at main() level
+          40 (11%) worst case
+
+Stack used: 3 worst case (out of 7 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+  405   347 100  JoyRx887.c
+   21     0   0  JoyRx887.h
+  410     0   0  C:\Program Files (x86)\PICC\devices\16F887.h
+----- -----
+  836   347 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+ Inline        1             @delay_ms2
+0     50   3   2   423  4.2  rs232_isr
+0    328  22   3  2585  7.4  MAIN
+0     22   1   0    17  0.8  delay
+0    302  20   7  1725  8.3  checkjoystick
+0     37   2   2             @MUL88
+0    531  36   1  4776  5.0  moter_wheel
+0    169  11   1  1227  4.4  ButtonLR
+
+Program metrics:
+    Functions               6
+    Statements              347
+    Comments                211
+    Volume (V)              13836
+    Difficilty (D)          30.8
+    Effort to implement (E) 426335
+    Time to implement (T)   6 hours, 35 minutes
+    Est Delivered Bugs (B)  2
+    Cyclomatic Complexity   60
+    Maintainability (MI)    74
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-00034    49  0  
+00035-007FF  1439  556  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+
