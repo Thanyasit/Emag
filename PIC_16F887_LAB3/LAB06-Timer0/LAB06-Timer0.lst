@@ -1,0 +1,183 @@
+CCS PCM C Compiler, Version 4.049, 25917               04-¡.¤.-16 10:52
+
+               Filename: LAB06-Timer0.lst
+
+               ROM used: 108 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 10 (3%) at main() level
+                         10 (3%) worst case
+               Stack:    0 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+.................... #include "D:\Work T.Pongsak\Microcontroller\Work\LAB06-Timer0\LAB06-Timer0.h" 
+.................... #include <16F877A.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #device adc=8 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES HS                    	//High speed Osc (> 4mhz) 
+.................... #FUSES NOPUT                 	//No Power Up Timer 
+.................... #FUSES NOPROTECT             	//Code not protected from reading 
+.................... #FUSES NODEBUG               	//No Debug mode for ICD 
+.................... #FUSES NOBROWNOUT            	//No brownout reset 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOCPD                 	//No EE protection 
+.................... #FUSES WRT_50%               	//Lower half of Program Memory is Write Protected 
+....................  
+.................... #use delay(clock=20000000) 
+....................  
+....................  
+.................... #use delay (clock=20M) 
+....................  
+.................... void main() 
+.................... { 
+0004:  CLRF   04
+0005:  BCF    03.7
+0006:  MOVLW  1F
+0007:  ANDWF  03,F
+0008:  BSF    03.5
+0009:  BSF    1F.0
+000A:  BSF    1F.1
+000B:  BSF    1F.2
+000C:  BCF    1F.3
+000D:  MOVLW  07
+000E:  MOVWF  1C
+....................    int time,time10,sec; 
+....................    setup_adc_ports(NO_ANALOGS); 
+*
+0012:  BSF    03.5
+0013:  BSF    1F.0
+0014:  BSF    1F.1
+0015:  BSF    1F.2
+0016:  BCF    1F.3
+....................    setup_adc(ADC_OFF); 
+0017:  BCF    03.5
+0018:  BCF    1F.0
+....................    setup_psp(PSP_DISABLED); 
+0019:  BSF    03.5
+001A:  BCF    09.4
+....................    setup_spi(SPI_SS_DISABLED); 
+*
+000F:  MOVLW  FF
+0010:  BCF    03.5
+0011:  MOVWF  20
+*
+001B:  BCF    03.5
+001C:  BCF    14.5
+001D:  BCF    20.5
+001E:  MOVF   20,W
+001F:  BSF    03.5
+0020:  MOVWF  07
+0021:  BCF    03.5
+0022:  BSF    20.4
+0023:  MOVF   20,W
+0024:  BSF    03.5
+0025:  MOVWF  07
+0026:  BCF    03.5
+0027:  BCF    20.3
+0028:  MOVF   20,W
+0029:  BSF    03.5
+002A:  MOVWF  07
+002B:  MOVLW  01
+002C:  BCF    03.5
+002D:  MOVWF  14
+002E:  MOVLW  00
+002F:  BSF    03.5
+0030:  MOVWF  14
+....................   // setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1); 
+....................    setup_timer_1(T1_DISABLED); 
+0031:  BCF    03.5
+0032:  CLRF   10
+....................    setup_timer_2(T2_DISABLED,0,1); 
+0033:  MOVWF  78
+0034:  MOVWF  12
+0035:  MOVLW  00
+0036:  BSF    03.5
+0037:  MOVWF  12
+....................    setup_comparator(NC_NC_NC_NC); 
+0038:  MOVLW  07
+0039:  MOVWF  1C
+003A:  MOVF   05,W
+003B:  MOVLW  10
+003C:  MOVWF  77
+003D:  DECFSZ 77,F
+003E:  GOTO   03D
+003F:  NOP
+0040:  MOVF   1C,W
+0041:  BCF    03.5
+0042:  BCF    0D.6
+....................    setup_vref(FALSE); 
+0043:  BSF    03.5
+0044:  CLRF   1D
+....................  
+....................    // TODO: USER CODE!! 
+....................    setup_timer_0(RTCC_DIV_256); 
+0045:  MOVF   01,W
+0046:  ANDLW  C0
+0047:  IORLW  07
+0048:  MOVWF  01
+....................    set_timer0(61); 
+0049:  MOVLW  3D
+004A:  BCF    03.5
+004B:  MOVWF  01
+....................    set_tris_d(0xf0); 
+004C:  MOVLW  F0
+004D:  BSF    03.5
+004E:  MOVWF  08
+....................    output_d(0x00); 
+004F:  CLRF   08
+0050:  BCF    03.5
+0051:  CLRF   08
+....................    while(1){ 
+....................       time = get_timer0(); 
+0052:  MOVF   01,W
+0053:  MOVWF  21
+....................       if(time==0){ 
+0054:  MOVF   21,F
+0055:  BTFSS  03.2
+0056:  GOTO   06A
+....................          time10++; 
+0057:  INCF   22,F
+....................          if(time10==100){ 
+0058:  MOVF   22,W
+0059:  SUBLW  64
+005A:  BTFSS  03.2
+005B:  GOTO   068
+....................             time10 = 0; 
+005C:  CLRF   22
+....................             sec++; 
+005D:  INCF   23,F
+....................             if(sec==60){ 
+005E:  MOVF   23,W
+005F:  SUBLW  3C
+0060:  BTFSS  03.2
+0061:  GOTO   063
+....................                sec = 0; 
+0062:  CLRF   23
+....................             } 
+....................             output_toggle(PIN_D0); //toggle change present  
+0063:  BSF    03.5
+0064:  BCF    08.0
+0065:  MOVLW  01
+0066:  BCF    03.5
+0067:  XORWF  08,F
+....................          } 
+....................          set_timer0(61); 
+0068:  MOVLW  3D
+0069:  MOVWF  01
+....................       } 
+....................    } 
+006A:  GOTO   052
+.................... } 
+....................  
+006B:  SLEEP
+
+Configuration Fuses:
+   Word  1: 393A   HS NOWDT NOPUT NODEBUG NOPROTECT NOBROWNOUT NOLVP NOCPD WRT_50%

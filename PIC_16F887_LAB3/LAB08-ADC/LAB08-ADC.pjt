@@ -1,0 +1,26 @@
+[PROJECT]
+Target=D:\Work T.Pongsak\Microcontroller\Work\LAB08-ADC\LAB08-ADC.hex
+Development_Mode=
+Processor_Text=PIC16F887
+ToolSuite=CCS
+Processor=0x887F
+[D:\Work T.Pongsak\Microcontroller\Work\LAB08-ADC\LAB08-ADC]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=D:\Work T.Pongsak\Microcontroller\Work\LAB08-ADC\LAB08-ADC.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=D:\Work T.Pongsak\Microcontroller\Work\LAB08-ADC\LAB08-ADC
+[Opened Files]
+1=D:\Work T.Pongsak\Microcontroller\Work\LAB08-ADC\LAB08-ADC.c
+2=D:\Work T.Pongsak\Microcontroller\Work\LAB08-ADC\LAB08-ADC.h
+3=C:\Program Files (x86)\PICC\devices\16F887.h
+4=

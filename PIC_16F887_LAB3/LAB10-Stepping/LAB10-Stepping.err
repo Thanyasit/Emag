@@ -1,0 +1,5 @@
+>>> Warning 203 "LAB10-Stepping.c" Line 21(1,1): Condition always TRUE
+>>> Warning 202 "LAB10-Stepping.c" Line 6(8,15): Variable never used:   full1ph
+>>> Warning 202 "LAB10-Stepping.c" Line 8(8,15): Variable never used:   full2ph
+      Memory usage:   ROM=2%      RAM=7% - 7%
+      0 Errors,  3 Warnings.

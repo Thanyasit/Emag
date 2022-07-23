@@ -1,0 +1,21 @@
+#include "D:\Work T.Pongsak\Microcontroller\Work\LAB09-Asynchronous\LAB09-Asynchronous.h"
+
+
+void main()
+{
+   setup_adc_ports(NO_ANALOGS|VSS_VDD);
+   setup_adc(ADC_OFF);
+   setup_spi(SPI_SS_DISABLED);
+   setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1);
+   setup_timer_1(T1_DISABLED);
+   setup_timer_2(T2_DISABLED,0,1);
+   setup_comparator(NC_NC_NC_NC);// This device COMP currently not supported by the PICWizard
+//Setup_Oscillator parameter not selected from Intr Oscillotar Config tab
+
+   // TODO: USER CODE!!
+   while(1){
+      putc(0x99);
+      delay_ms(2);
+   
+   }
+}

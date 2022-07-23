@@ -1,0 +1,47 @@
+
+ROM used: 184 (2%)
+          184 (2%) including unused fragments
+
+          0 Average locations per line
+          6 Average locations per statement
+
+RAM used: 19 (5%) at main() level
+          19 (5%) worst case
+
+Stack used: 1 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   43    32 100  LAB07-incDec.c
+   20     0   0  LAB07-incDec.h
+  410     0   0  C:\Program Files (x86)\PICC\devices\16F887.h
+----- -----
+  473    32 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20  11   1             @delay_ms2
+0    160  87  12  1016  6.8  main
+
+Program metrics:
+    Functions               1
+    Statements              32
+    Comments                86
+    Volume (V)              1019
+    Difficilty (D)          6.7
+    Effort to implement (E) 6832
+    Time to implement (T)   6 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   4
+    Maintainability (MI)    127
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   180  1864  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

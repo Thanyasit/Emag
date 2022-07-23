@@ -1,0 +1,175 @@
+CCS PCM C Compiler, Version 4.049, 25917               05-¡.Â.-16 10:59
+
+               Filename: LAB11.lst
+
+               ROM used: 108 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 8 (2%) at main() level
+                         8 (2%) worst case
+               Stack:    0 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+.................... #include "D:\Work T.Pongsak\Microcontroller\Work\LAB11\LAB11.h" 
+.................... #include <16F887.h> 
+.................... //////// Standard Header file for the PIC16F887 device //////////////// 
+.................... #device PIC16F887 
+.................... #list 
+....................  
+.................... #device adc=8 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES HS                    	//High speed Osc (> 4mhz) 
+.................... #FUSES NOPUT                 	//No Power Up Timer 
+.................... #FUSES MCLR                  	//Master Clear pin enabled 
+.................... #FUSES NOPROTECT             	//Code not protected from reading 
+.................... #FUSES NOCPD                 	//No EE protection 
+.................... #FUSES NOBROWNOUT            	//No brownout reset 
+.................... #FUSES NOIESO                	//Internal External Switch Over mode disabled 
+.................... #FUSES NOFCMEN               	//Fail-safe clock monitor disabled 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NODEBUG               	//No Debug mode for ICD 
+.................... #FUSES NOWRT                 	//Program memory not write protected 
+.................... #FUSES BORV40                	//Brownout reset at 4.0V 
+....................  
+.................... #use delay(clock=20000000) 
+....................  
+....................  
+....................  
+....................  
+.................... void main() 
+.................... { 
+0004:  CLRF   04
+0005:  BCF    03.7
+0006:  MOVLW  1F
+0007:  ANDWF  03,F
+0008:  BSF    03.5
+0009:  BSF    03.6
+000A:  MOVF   09,W
+000B:  ANDLW  C0
+000C:  MOVWF  09
+000D:  BCF    03.6
+000E:  BCF    1F.4
+000F:  BCF    1F.5
+0010:  MOVLW  00
+0011:  BSF    03.6
+0012:  MOVWF  08
+0013:  BCF    03.5
+0014:  CLRF   07
+0015:  CLRF   08
+0016:  CLRF   09
+....................    int duty; 
+....................    setup_adc_ports(sAN0|VSS_VDD); 
+*
+001A:  BSF    03.5
+001B:  BSF    03.6
+001C:  MOVF   09,W
+001D:  ANDLW  C0
+001E:  MOVWF  09
+001F:  BCF    03.6
+0020:  BCF    1F.4
+0021:  BCF    1F.5
+0022:  MOVLW  00
+0023:  IORLW  01
+0024:  BSF    03.6
+0025:  MOVWF  08
+....................    setup_adc(ADC_CLOCK_INTERNAL); 
+0026:  BCF    03.5
+0027:  BCF    03.6
+0028:  BSF    1F.6
+0029:  BSF    1F.7
+002A:  BSF    03.5
+002B:  BCF    1F.7
+002C:  BCF    03.5
+002D:  BSF    1F.0
+....................    setup_spi(SPI_SS_DISABLED); 
+*
+0017:  MOVLW  FF
+0018:  BCF    03.6
+0019:  MOVWF  20
+*
+002E:  BCF    14.5
+002F:  BCF    20.5
+0030:  MOVF   20,W
+0031:  BSF    03.5
+0032:  MOVWF  07
+0033:  BCF    03.5
+0034:  BSF    20.4
+0035:  MOVF   20,W
+0036:  BSF    03.5
+0037:  MOVWF  07
+0038:  BCF    03.5
+0039:  BCF    20.3
+003A:  MOVF   20,W
+003B:  BSF    03.5
+003C:  MOVWF  07
+003D:  MOVLW  01
+003E:  BCF    03.5
+003F:  MOVWF  14
+0040:  MOVLW  00
+0041:  BSF    03.5
+0042:  MOVWF  14
+....................    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1); 
+0043:  MOVF   01,W
+0044:  ANDLW  C7
+0045:  IORLW  08
+0046:  MOVWF  01
+....................    setup_timer_1(T1_DISABLED); 
+0047:  BCF    03.5
+0048:  CLRF   10
+....................    setup_timer_2(T2_DIV_BY_16,255,1); 
+0049:  MOVLW  00
+004A:  MOVWF  78
+004B:  IORLW  06
+004C:  MOVWF  12
+004D:  MOVLW  FF
+004E:  BSF    03.5
+004F:  MOVWF  12
+....................    setup_ccp1(CCP_PWM); 
+0050:  BCF    03.5
+0051:  BCF    20.2
+0052:  MOVF   20,W
+0053:  BSF    03.5
+0054:  MOVWF  07
+0055:  BCF    03.5
+0056:  BCF    07.2
+0057:  MOVLW  0C
+0058:  MOVWF  17
+0059:  BSF    03.5
+005A:  CLRF   1B
+....................    set_pwm1_duty(229); 
+005B:  MOVLW  E5
+005C:  BCF    03.5
+005D:  MOVWF  15
+....................    setup_comparator(NC_NC_NC_NC);// This device COMP currently not supported by the PICWizard 
+005E:  BSF    03.6
+005F:  CLRF   07
+0060:  CLRF   08
+0061:  CLRF   09
+.................... //Setup_Oscillator parameter not selected from Intr Oscillotar Config tab 
+....................  
+....................    // TODO: USER CODE!! 
+....................     
+....................    while(1){ 
+....................       duty = read_adc(ADC_START_AND_READ); 
+0062:  BCF    03.6
+0063:  BSF    1F.1
+0064:  BTFSC  1F.1
+0065:  GOTO   064
+0066:  MOVF   1E,W
+0067:  MOVWF  21
+....................       set_pwm1_duty(duty); 
+0068:  MOVF   21,W
+0069:  MOVWF  15
+....................    } 
+006A:  GOTO   063
+....................  
+.................... } 
+006B:  SLEEP
+
+Configuration Fuses:
+   Word  1: 20F2   HS NOWDT NOPUT MCLR NOPROTECT NOCPD NOBROWNOUT NOIESO NOFCMEN NOLVP NODEBUG
+   Word  2: 3FFF   NOWRT BORV40

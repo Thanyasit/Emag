@@ -1,0 +1,47 @@
+
+ROM used: 166 (2%)
+          166 (2%) including unused fragments
+
+          0 Average locations per line
+          12 Average locations per statement
+
+RAM used: 25 (7%) at main() level
+          26 (7%) worst case
+
+Stack used: 1 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   29    14 100  LAB10-Stepping.c
+   20     0   0  LAB10-Stepping.h
+  410     0   0  C:\Program Files (x86)\PICC\devices\16F887.h
+----- -----
+  459    14 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     22  13   1             @delay_ms1
+0    140  84  18   717  5.6  main
+
+Program metrics:
+    Functions               1
+    Statements              14
+    Comments                86
+    Volume (V)              719
+    Difficilty (D)          5.5
+    Effort to implement (E) 3956
+    Time to implement (T)   4 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   1
+    Maintainability (MI)    142
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   162  1882  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+
