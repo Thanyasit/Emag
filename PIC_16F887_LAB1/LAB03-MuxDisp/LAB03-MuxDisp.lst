@@ -1,0 +1,262 @@
+CCS PCM C Compiler, Version 4.049, 25917               13-ат.б.-16 11:23
+
+               Filename: LAB03-MuxDisp.lst
+
+               ROM used: 171 words (2%)
+                         Largest free fragment is 2048
+               RAM used: 26 (7%) at main() level
+                         26 (7%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   01A
+0003:  NOP
+.................... #include "D:\Work T.Pongsak\Microcontroller\Work\LAB03-MuxDisp\LAB03-MuxDisp.h" 
+.................... #include <16F877A.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+.................... #list 
+....................  
+.................... #device adc=8 
+....................  
+.................... #FUSES NOWDT                 	//No Watch Dog Timer 
+.................... #FUSES HS                    	//High speed Osc (> 4mhz) 
+.................... #FUSES NOPUT                 	//No Power Up Timer 
+.................... #FUSES NOPROTECT             	//Code not protected from reading 
+.................... #FUSES NODEBUG               	//No Debug mode for ICD 
+.................... #FUSES NOBROWNOUT            	//No brownout reset 
+.................... #FUSES NOLVP                 	//No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NOCPD                 	//No EE protection 
+.................... #FUSES WRT_50%               	//Lower half of Program Memory is Write Protected 
+....................  
+.................... #use delay(clock=20000000) 
+....................  
+....................  
+.................... #use delay (clock=20M) 
+0004:  MOVLW  32
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  BCF    0A.3
+0018:  BCF    0A.4
+0019:  GOTO   0A5 (RETURN)
+....................  
+.................... void main() 
+.................... { 
+001A:  CLRF   04
+001B:  BCF    03.7
+001C:  MOVLW  1F
+001D:  ANDWF  03,F
+001E:  BSF    03.5
+001F:  BSF    1F.0
+0020:  BSF    1F.1
+0021:  BSF    1F.2
+0022:  BCF    1F.3
+0023:  MOVLW  07
+0024:  MOVWF  1C
+....................    char segment[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F}; 
+*
+0028:  MOVLW  3F
+0029:  MOVWF  21
+002A:  MOVLW  06
+002B:  MOVWF  22
+002C:  MOVLW  5B
+002D:  MOVWF  23
+002E:  MOVLW  4F
+002F:  MOVWF  24
+0030:  MOVLW  66
+0031:  MOVWF  25
+0032:  MOVLW  6D
+0033:  MOVWF  26
+0034:  MOVLW  7D
+0035:  MOVWF  27
+0036:  MOVLW  07
+0037:  MOVWF  28
+0038:  MOVLW  7F
+0039:  MOVWF  29
+003A:  MOVLW  6F
+003B:  MOVWF  2A
+....................    int i,com1,com2; 
+....................    int data[]={2,5,7,9}; 
+003C:  MOVLW  02
+003D:  MOVWF  2E
+003E:  MOVLW  05
+003F:  MOVWF  2F
+0040:  MOVLW  07
+0041:  MOVWF  30
+0042:  MOVLW  09
+0043:  MOVWF  31
+....................    setup_adc_ports(NO_ANALOGS); 
+0044:  BSF    03.5
+0045:  BSF    1F.0
+0046:  BSF    1F.1
+0047:  BSF    1F.2
+0048:  BCF    1F.3
+....................    setup_adc(ADC_OFF); 
+0049:  BCF    03.5
+004A:  BCF    1F.0
+....................    setup_psp(PSP_DISABLED); 
+004B:  BSF    03.5
+004C:  BCF    09.4
+....................    setup_spi(SPI_SS_DISABLED); 
+*
+0025:  MOVLW  FF
+0026:  BCF    03.5
+0027:  MOVWF  20
+*
+004D:  BCF    03.5
+004E:  BCF    14.5
+004F:  BCF    20.5
+0050:  MOVF   20,W
+0051:  BSF    03.5
+0052:  MOVWF  07
+0053:  BCF    03.5
+0054:  BSF    20.4
+0055:  MOVF   20,W
+0056:  BSF    03.5
+0057:  MOVWF  07
+0058:  BCF    03.5
+0059:  BCF    20.3
+005A:  MOVF   20,W
+005B:  BSF    03.5
+005C:  MOVWF  07
+005D:  MOVLW  01
+005E:  BCF    03.5
+005F:  MOVWF  14
+0060:  MOVLW  00
+0061:  BSF    03.5
+0062:  MOVWF  14
+....................    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1); 
+0063:  MOVF   01,W
+0064:  ANDLW  C7
+0065:  IORLW  08
+0066:  MOVWF  01
+....................    setup_timer_1(T1_DISABLED); 
+0067:  BCF    03.5
+0068:  CLRF   10
+....................    setup_timer_2(T2_DISABLED,0,1); 
+0069:  MOVLW  00
+006A:  MOVWF  78
+006B:  MOVWF  12
+006C:  MOVLW  00
+006D:  BSF    03.5
+006E:  MOVWF  12
+....................    setup_comparator(NC_NC_NC_NC); 
+006F:  MOVLW  07
+0070:  MOVWF  1C
+0071:  MOVF   05,W
+0072:  MOVLW  10
+0073:  MOVWF  77
+0074:  DECFSZ 77,F
+0075:  GOTO   074
+0076:  NOP
+0077:  MOVF   1C,W
+0078:  BCF    03.5
+0079:  BCF    0D.6
+....................    setup_vref(FALSE); 
+007A:  BSF    03.5
+007B:  CLRF   1D
+....................  
+....................    // TODO: USER CODE!! 
+....................    set_tris_d(0x00); 
+007C:  MOVLW  00
+007D:  MOVWF  08
+....................    set_tris_c(0xF0); 
+007E:  MOVLW  F0
+007F:  MOVWF  07
+0080:  BCF    03.5
+0081:  MOVWF  20
+.................... /*  
+....................    while(1){ 
+....................          output_c(0xFE);      //digis 1 
+....................          output_d(segment[0]); 
+....................          delay_ms(1); 
+....................          output_d(0x00); 
+....................          output_c(0xFD);      //digis 2 
+....................          output_d(segment[0]); 
+....................          delay_ms(1); 
+....................          output_d(0x00); 
+....................          output_c(0xFB);      //digis 3 
+....................          output_d(segment[2]); 
+....................          delay_ms(1); 
+....................          output_d(0x00); 
+....................          output_c(0xF7);      //digis 4 
+....................          output_d(segment[4]);  
+....................          delay_ms(1); 
+....................          output_d(0x00); 
+....................           
+....................    } 
+.................... */ 
+....................    while(1){ 
+....................       com1 = 0b00000001; 
+0082:  MOVLW  01
+0083:  MOVWF  2C
+....................       for(i=0;i<4;i++){ 
+0084:  CLRF   2B
+0085:  MOVF   2B,W
+0086:  SUBLW  03
+0087:  BTFSS  03.0
+0088:  GOTO   0A9
+....................          com2 = ~com1; 
+0089:  MOVF   2C,W
+008A:  MOVWF  2D
+008B:  COMF   2D,F
+....................          output_c(com2); 
+008C:  MOVLW  00
+008D:  MOVWF  20
+008E:  BSF    03.5
+008F:  CLRF   07
+0090:  BCF    03.5
+0091:  MOVF   2D,W
+0092:  MOVWF  07
+....................          output_d(segment[data[i]]); 
+0093:  MOVLW  2E
+0094:  ADDWF  2B,W
+0095:  MOVWF  04
+0096:  BCF    03.7
+0097:  MOVLW  21
+0098:  ADDWF  00,W
+0099:  MOVWF  04
+009A:  BCF    03.7
+009B:  MOVF   00,W
+009C:  MOVWF  33
+009D:  BSF    03.5
+009E:  CLRF   08
+009F:  BCF    03.5
+00A0:  MOVF   33,W
+00A1:  MOVWF  08
+....................          delay_ms(200); 
+00A2:  MOVLW  C8
+00A3:  MOVWF  32
+00A4:  GOTO   004
+....................          com1 = com1<<1; 
+00A5:  BCF    03.0
+00A6:  RLF    2C,F
+....................       } 
+00A7:  INCF   2B,F
+00A8:  GOTO   085
+....................    } 
+00A9:  GOTO   082
+.................... } 
+....................  
+00AA:  SLEEP
+
+Configuration Fuses:
+   Word  1: 393A   HS NOWDT NOPUT NODEBUG NOPROTECT NOBROWNOUT NOLVP NOCPD WRT_50%

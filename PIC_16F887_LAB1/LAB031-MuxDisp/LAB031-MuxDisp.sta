@@ -1,0 +1,47 @@
+
+ROM used: 172 (2%)
+          172 (2%) including unused fragments
+
+          0 Average locations per line
+          8 Average locations per statement
+
+RAM used: 28 (8%) at main() level
+          28 (8%) worst case
+
+Stack used: 1 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   33    21 100  LAB031-MuxDisp.c
+   16     0   0  LAB031-MuxDisp.h
+  312     0   0  C:\Program Files (x86)\PICC\devices\16F877A.h
+----- -----
+  361    21 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     22  13   1   952  6.4  @delay_ms2
+0    146  85  21   952  6.4  main
+
+Program metrics:
+    Functions               2
+    Statements              21
+    Comments                75
+    Volume (V)              2203
+    Difficilty (D)          12.8
+    Effort to implement (E) 28234
+    Time to implement (T)   26 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   2
+    Maintainability (MI)    93
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   168  1876  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

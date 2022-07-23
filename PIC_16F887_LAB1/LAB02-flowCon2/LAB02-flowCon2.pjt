@@ -1,0 +1,25 @@
+[PROJECT]
+Target=D:\Work T.Pongsak\Microcontroller\Work\LAB02-flowCon2\LAB02-flowCon2.hex
+Development_Mode=
+Processor_Text=PIC16F877A
+ToolSuite=CCS
+Processor=0x877A
+[D:\Work T.Pongsak\Microcontroller\Work\LAB02-flowCon2\LAB02-flowCon2]
+Type=4
+Path=
+FileList=
+BuildTool=
+OptionString=
+AdditionalOptionString=
+[mru-list]
+1=D:\Work T.Pongsak\Microcontroller\Work\LAB02-flowCon2\LAB02-flowCon2.c
+[Windows]
+0=0000 %S 0 0 796 451 3 0
+[Units]
+Link=0
+Count=1
+1=D:\Work T.Pongsak\Microcontroller\Work\LAB02-flowCon2\LAB02-flowCon2
+[Opened Files]
+1=D:\Work T.Pongsak\Microcontroller\Work\LAB021-sw\LAB021-sw.c
+2=
+3=

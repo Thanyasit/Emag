@@ -1,0 +1,46 @@
+
+ROM used: 197 (2%)
+          197 (2%) including unused fragments
+
+          0 Average locations per line
+          6 Average locations per statement
+
+RAM used: 19 (5%) at main() level
+          19 (5%) worst case
+
+Stack used: 0 worst case (out of 8 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   70    34 100  LAB02-flowCon2.c
+   16     0   0  LAB02-flowCon2.h
+  312     0   0  C:\Program Files (x86)\PICC\devices\16F877A.h
+----- -----
+  398    34 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0    193  98  12  1353  5.9  main
+
+Program metrics:
+    Functions               1
+    Statements              34
+    Comments                86
+    Volume (V)              1353
+    Difficilty (D)          5.9
+    Effort to implement (E) 8022
+    Time to implement (T)   7 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   11
+    Maintainability (MI)    123
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   193  1851  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

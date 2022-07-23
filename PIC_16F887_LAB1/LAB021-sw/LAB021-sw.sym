@@ -1,0 +1,59 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     @TRIS_C
+021-02A main.segment
+02B     main.i
+02C.0   main.sw
+02D     main.@SCRATCH
+02E     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+0004  @delay_ms1
+001A  main
+001A  @cinit
+
+Project Directory:
+    D:\Work T.Pongsak\Microcontroller\Work\LAB021-sw\
+
+Project Files:
+    LAB021-sw.c
+    LAB021-sw.h
+    C:\Program Files (x86)\PICC\devices\16F877A.h
+
+Units:
+    LAB021-sw.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      LAB021-sw.err
+    Ext Symbols: LAB021-sw.esym
+    INHX8:       LAB021-sw.hex
+    Symbols:     LAB021-sw.sym
+    List:        LAB021-sw.lst
+    Debug/COFF:  LAB021-sw.cof
+    Project:     LAB021-sw.PJT
+    Call Tree:   LAB021-sw.tre
+    Statistics:  LAB021-sw.sta

@@ -1,0 +1,29 @@
+#include "D:\Work T.Pongsak\Microcontroller\Work\LAB021-sw\LAB021-sw.h"
+
+
+void main()
+{
+   char segment[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
+   int i;
+   int1 sw;
+   setup_adc_ports(NO_ANALOGS);
+   setup_adc(ADC_OFF);
+   setup_psp(PSP_DISABLED);
+   setup_spi(SPI_SS_DISABLED);
+   setup_timer_0(RTCC_INTERNAL|RTCC_DIV_1);
+   setup_timer_1(T1_DISABLED);
+   setup_timer_2(T2_DISABLED,0,1);
+   setup_comparator(NC_NC_NC_NC);
+   setup_vref(FALSE);
+
+   // TODO: USER CODE!!
+   do{
+      sw = input(PIN_D0);
+   }while(sw==1);
+   while(1){
+      for(i=0;i<10;i++){  //i++ : i=i+1
+         output_b(segment[i]);
+         delay_ms(1000);
+      }
+   }
+}
